@@ -1,0 +1,78 @@
+#VP {
+  position: absolute;
+    left: 2; top: 17;
+  z-index: 11;
+  background-color: #f1f1f1;
+  text-align: center;
+  border: 1px solid #d3d3d3;
+}
+
+#VPheader {
+  padding: 2px;
+  cursor: move;
+  z-index: 12;
+  background-color: #2196F3;
+  color: #fff;
+}
+
+#virtpiano {
+    visibility: hidden;
+    position: absolute;
+    left: -10; top:20;
+    height:130; width:1920;
+    border: none;
+}
+
+#TAS {
+  position: absolute;
+    left: 2; top: 87;
+  z-index: 17;
+  background-color: #f1f1f1;
+  text-align: center;
+  border: 1px solid #d3d3d3;
+}
+
+#TASheader {
+  padding: 2px;
+  cursor: move;
+  z-index: 17;
+  background-color: #2196F3;
+  color: #fff;
+}
+
+#TascamMix {
+    visibility: hidden;
+    position: absolute;
+    left: 0; top:30;
+    height:510; width:1600;
+    border: 3px solid white;
+}
+
+#SF {
+  position: absolute;
+  left: 2; top: 47;
+  z-index: 13;
+  background-color: #f1f1f1;
+  text-align: center;
+  border: 1px solid #d3d3d3;
+}
+
+#SFheader {
+  padding: 2px;
+  cursor: move;
+  z-index: 10;
+  background-color: #2196F3;
+  color: #fff;
+}
+
+#extSynth {
+    visibility: hidden;
+    position: absolute;
+    left: 10; top: 30;
+    height:600; width:380;
+    border: none;
+}
+
+
+
+

@@ -1,0 +1,171 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <style>
+      body {
+        margin: 0px;
+        padding: 0px;
+      }
+    </style>
+  </head>
+  <canvas id="myCanvas" width="0" height="0"></canvas>
+
+     <script> 
+
+function isPrime()
+{
+   // Eratosthenes algorithm to find all primes under n
+    for (var i = 0; i < 1000; ++ i)
+   {
+      arr[i] = true;
+   
+   }
+   // Make an array from 2 to (n - 1)
+   arr[0] = false;
+   arr[1] = true;
+
+   // Remove multiples of primes starting from 2, 3, 5, ...
+   i = 2;
+   while (i < 1000)
+   {
+     
+      if (arr[i])
+      {
+         for (var j = i * i; j < 2000; j += i)
+         {
+            arr[j] = false;
+            arr[ - j] = false;
+         }
+      }
+      i ++ ;
+   }
+   return arr;
+}
+
+function rndColor() {
+    var hex = ['0', '1', '2', '3', '4', '5', '6', '7',
+               '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'],
+        color = '#', i;
+    for (i = 0; i < 6 ; i++) {
+        color = color + hex[Math.floor(Math.random() * 16)];
+    }
+    return color;
+}
+
+
+function redraw()
+{
+   
+   
+   if (incrementor<900 && osc==true){ q=q+0.032;incrementor=incrementor+4; if(incrementor>890){osc=false;} } 
+   else if (incrementor>-900 && osc==false){ q=q-0.032;incrementor=incrementor-4;if(incrementor<-890){osc=true;} }
+    theta+=step;
+    circle();
+  
+   clear();
+   main(q)
+}
+
+function clear()
+{
+  context.fillStyle = "#000840";
+   context.fillRect(0, 0, 1900, 1900);
+}
+
+function init(){
+   var canvas = document.getElementById('myCanvas');
+   context = canvas.getContext('2d');
+   var  canvas = document.getElementsByTagName('canvas')[0];
+
+   
+   canvas.width  = screen.width;
+   canvas.height = screen.height;
+   colorChange();
+	isPrime();
+ refresh = setInterval(redraw, 0);
+
+   
+}
+
+function colorChange(){
+    for (var i = 0; i < 1000; ++ i)
+   {
+      
+      color=rndColor();
+      col[i] =color;
+   }
+}
+
+  var theta=0;
+  var step = Math.PI/1000; 
+  var h = 45; 
+  var k = 44;
+  var r = 120;
+
+ function circle(){
+  xfactor = h + r*Math.cos(theta);
+  yfactor = k - r*Math.sin(theta);    
+
+ 
+}
+
+function main(){
+  y=20;
+  dia = 1;
+  rad=dia/2;
+  offset=20;
+  T = 800+(-220* q);
+  centerY =580 +yfactor*4;
+   for(i = 500 ; i >=10; i -- )
+   {
+ 	
+      if(arr[i] == true)
+      {
+         mult = 1;
+        offset = offset - q;
+         while(dia * i * mult <= 600 )
+         {
+           offset = rad * i - oldrad + offset;
+            radius = (i * rad);
+            oldrad = radius;
+	    
+           
+            context.beginPath();
+            if(mult>z)
+            {
+		centerY=centerY+mult/4+(yfactor/20);
+ 		
+
+                centerX = T+ ( dia * i * mult )-offset+100;
+		
+		centerX=centerX+800+incrementor+(1.4*xfactor*(mult/40));
+                context.arc(centerX=centerX, centerY, radius,0, 2 * Math.PI);
+		
+              
+                context.fill();
+                context.stroke();
+                context.closePath();
+            }
+            mult ++ ;
+         }
+
+          context.fillStyle = y;
+		context.font = 90+"px Arial";
+context.fillText("BAQ 2 BASIC", centerX-1200, centerY-1200);      
+ y=col[i];
+      }
+
+   }
+
+}
+oldrad = 0; incrementor=0;
+q=5;z=0 ; col =[];  arr = [];osc=true;
+init();
+</script>
+<body>
+
+  
+
+
+</body>
+</html>

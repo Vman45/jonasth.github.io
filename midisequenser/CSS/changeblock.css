@@ -1,0 +1,15 @@
+﻿#container1, #container2 {
+  position:relative;
+  display:none;
+  border:3px solid blue;
+  width:100%;
+  height:100%
+  overflow:hidden;
+}
+
+#container3, #container4 {
+  display:none;
+  border:3px solid blue;
+  width:500px;
+  overflow:hidden;
+}

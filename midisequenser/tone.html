@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Tonejs Midi</title>
+	
+	<script type="text/javascript" src="https://unpkg.com/@tonejs/midi"></script>
+</head>
+<body>
+<!--<table><tr><td>-->
+	<style type="text/css">
+
+		#FileDrop{
+			position: relative;
+			width: 600px;
+			height: 100px;
+			border: 2px dashed black;
+			color: black;
+			margin: 20px auto;
+		}
+
+		#FileDrop.Hover{
+			background-color: black;
+			color: white;
+		}
+
+		#FileDrop input {
+			position: absolute;
+			width: 600px;
+			height: 100px;
+			opacity: 0;
+			left: 0px;
+			top: 0px;
+		}
+
+		#FileDrop #Text {
+			position: absolute;
+			width: 600px;
+			height: 20px;
+			line-height: 20px;
+			left: 0px;
+			top: 50%;
+			transform: translate(0, -50%);
+			text-align: center;
+		}
+
+		textarea {
+			font-family: monospace;
+			height: 100px;
+			width: 600px;
+			display: inline-block;
+			position: relative;
+			float: left;
+		}
+
+		#Results {
+			position: relative;
+			width: 600px;
+			margin: 10px auto;
+		}
+
+		#Description {
+			position: relative;
+			width: 100%;
+			text-align: center;
+			height: 40px;
+			font-size: 16px;
+			margin: 10px auto;
+			font-family: sans-serif;
+		}
+
+		tone-play-toggle {
+			margin-top: 10px;
+		}
+
+	</style>
+
+		<div id="Description"><B>IMPORT A MIDIFILE, CLICK OR DROP IN BOX</B></div>
+		<div id="FileDrop">
+			<div id="Text">
+				Drop a midi file here
+			</div>
+			<input type="file" accept="audio/midi">
+		</div>
+		
+		
+	
+
+<!--</td></tr></table>-->
+	<script type="text/javascript">
+
+		parsedMidi="";
+		if (!(window.File && window.FileReader && window.FileList && window.Blob)) {
+			document.querySelector("#FileDrop #Text").textContent = "Reading files not supported by this browser";
+		} else {
+
+			const fileDrop = document.querySelector("#FileDrop")
+
+			fileDrop.addEventListener("dragenter", () => fileDrop.classList.add("Hover"))
+
+			fileDrop.addEventListener("dragleave", () => fileDrop.classList.remove("Hover"))
+
+			fileDrop.addEventListener("drop", () => fileDrop.classList.remove("Hover"))
+
+			document.querySelector("#FileDrop input").addEventListener("change", e => {
+				//get the files
+				const files = e.target.files
+				if (files.length > 0){
+					const file = files[0]
+					document.querySelector("#FileDrop #Text").textContent = file.name
+					parseFile(file)
+				}
+			setTimeout(function(){ 	sendParent();}, 100);	
+			})
+		}
+
+		let currentMidi = null
+      
+		function parseFile(file){
+			//read the file
+			const reader = new FileReader()
+			reader.onload = function(e){
+				const midi = new Midi(e.target.result)
+				//document.querySelector("#ResultsText").value = JSON.stringify(midi, undefined, 2)
+				parsedMidi=JSON.stringify(midi, undefined, 2)
+				
+			}
+			
+			reader.readAsArrayBuffer(file)
+		}
+		
+
+		function sendParent(){
+			parent.importedMidi = parsedMidi;
+			parent.reparseMidi();
+	     
+		}
+   
+	</script>
+
+</body>
+</html>

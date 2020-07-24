@@ -1,0 +1,1171 @@
+	<html>
+	<head>
+	<title>Online midi sequenser, "Online MIDISEQUENSER"</title>
+	<script data-ad-client="ca-pub-7649177273606529" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+		<link REL="StyleSheet" HREF="CSS/drop.css">
+			<link REL="StyleSheet" HREF="CSS/drum.css">
+				<link REL="StyleSheet" HREF="CSS/button.css">
+					<link REL="StyleSheet" HREF="CSS/changeblock.css">
+					<link REL="StyleSheet" HREF="CSS/dragbutton.css">
+						<script src="JS/CSS.js"></script>
+						<script src="JS/stringHandling.js"></script>
+						<script src="JS/MAINportACCESS.js"></script>
+						<script src="JS/MAINinit.js"></script>
+						<script src="JS/metronome.js"></script>
+						<script src="JS/MAINtrack.js"></script>
+						<script src="JS/MAINrecordMid.js"></script>
+						<script src="JS/MAINplayUpMid.js"></script>
+						<script src="JS/UI.js"></script>
+						<script src="JS/UItrackChange.js"></script>
+						<script src="JS/latency.js"></script>
+						<script src="JS/barRange.js"></script>
+						<script src="JS/sendMessage.js"></script>
+						<script src="JS/settingChange.js"></script>
+						<script src="JS/calcTimeBar.js"></script>
+						<script src="JS/DrawALLTRACKS.js"></script>
+						<script src="JS/DrawEDIT.js"></script>
+						<script src="JS/DrawLEFTCANVAS.js"></script>
+						<script src="JS/DrawMAINPIANO.js"></script>
+						<script src="JS/DrawSCROLLBAR.js"></script>
+						<script src="JS/DrawSCROLLPIANO.js"></script>
+						<script src="JS/VIRTdrum.js"></script>
+						<script src="JS/VIRTpiano.js"></script>
+						<script src="JS/mixDown.js"></script>
+						<script src="JS/DrawNOTESCANVAS.js"></script>
+						<script src="JS/copyPasteMove.js"></script>
+						<script src="JS/trackEdit.js"></script>
+						<script src="JS/trackUpdate.js"></script>
+						<script src="JS/mouseKeybPlay.js"></script>
+						<script src="JS/IMPORTInstFile.js"></script>
+						<script src="JS/loadsave.js"></script>
+						<script src="JS/DEVextSynth.js"></script>
+						<script src="JS/DEVkorgN364.js"></script>
+						<script src="JS/DEVkorgrc168.js"></script>
+						<script src="JS/DEVtasc1884fw.js"></script>
+						<script src="JS/quantize.js"></script>
+						<script src="JS/mouse.js"></script>
+						<script src="JS/IMPORTMidiFile.js"></script>
+						<script src="JS/BAQ.js"></script>
+						<script src="JS/sheetmusic.js"></script>
+						 
+ <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-120240743-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'UA-120240743-1');
+</script>
+
+<div id=TAS>
+ <div id="TASheader">FW1884Mixer 
+ <button onClick="toggleTascam();"><B>X</B></button></div>
+	<iframe src="/Tascam.html" id="TascamMix" name="TascamMix"></iframe>
+</div>
+</div>
+
+<div id=VP>	
+ <div id="VPheader">Virtual Piano 
+	<button onClick="toggleVP();"><B>X</B></button></div>
+	<iframe src="/virtpiano.html" id="virtpiano" name="virtpiano"></iframe>
+</div>
+</div>
+
+<div id=SF>	
+ <div id="SFheader">Sound Font 
+	<button onClick="toggleSF();"><B>X</B></button></div>
+	<iframe src="blank.html" id="extSynth" name="extSynth"></iframe>
+</div>
+</div>
+
+<script>
+dragElement(document.getElementById("TAS"));
+dragElement(document.getElementById("SF"));
+dragElement(document.getElementById("VP"));
+</script>	
+
+</head>
+<body bgcolor=orange onLoad=midiInitiation(); >
+
+						 
+
+	<table width=94% height=97% bgcolor=graphene border=1 align=right>
+	
+
+	
+	
+	<tr><td valign=top width=410 height=100%>
+
+	<table valign=top border=1 width=100% height=100% bgcolor="#F2D16B">
+	
+		<tr><td colspan=3 bgcolor=lightgrey>
+
+		<div class="dropdown">
+						<button onClick="TREDHTML()" class="dropbtn"><B>Track Editor</button>
+						<div id="TRED" class="dropdown-content">
+					   
+		   <table bgcolor=orange border=1 align=left valign=top width=450>
+		   		<td bgcolor=purple colspan=3>
+						<font color=white><B>SEL. EVENT</B>
+						<button onClick="eventPlus()" type="button"><b>+</b></button>
+						<input type="text" id="chosenEvent" name="chosenEvent" value=0 size=1 onkeypress="selectEvent()">
+						<button onClick="eventMinus()" type="button"><b>-</b></button>
+					
+						<font color=white>
+						<B> ACTIVE TRACK  </B>  <button onClick="listTrPlus();" type="button"><b>+</b></button>
+						<input type="text" id="trackListed" name="trackListed" onChange="changeTrListing()" value=1 size=1>
+						<button onClick="listTrMinus()" type="button"><b>-</b></button>
+					</td>
+				</tr>
+		   
+				<tr bgcolor=#F2D16B>	
+   <td  align=center colspan=1 bgcolor=white>
+					<font color=black><b>NOTE MESSAGE</b></font></td>				
+					<td align=center>
+					   <button onClick="noteDelete()" type="button"><font color=black><b>DELETE</b></font></button>
+					</td> 
+					<td align=center>					
+					  <button onClick="noteInsert()" type="button"><font color=black><b>INSERT</b></font></button>
+					</td>
+				</tr>
+				
+				<tr bgcolor=#F2D16B> 
+					<td colspan=3><font color=black>
+						<B>NOTE ON <button onClick="OnPlus()" type="button"><b>+</b></button>  
+						<input type="text" id="NOTESTART" name="NOTESTART" value="" size=4>
+						<button onClick="OnMinus()" type="button"><b>-</b></button>
+						<B>DUR</B><input type="text" id="test" name="test" value="" size=4 disabled>
+						<B>OFF</B><button onClick="OffPlus()" type="button"><b>+</b></button> 
+						<input type="text" id="NOTEEND" name="NOTEEND" value="" size=4>
+						<button onClick="OffMinus()" type="button"><b>-</b></button>
+					</td>
+				</tr>
+				<tr bgcolor=#F2D16B>
+					<td colspan=3>	<font color=black>
+						<B>KEYNR <input type="text" id="NOTEVAL" name="NOTEVAL" value="" size=4>
+						<B>NOTE NAME<input type="text" id="NOTE" name="NOTE" value="" size=4 disabled>
+						<B>VELOCITY <input type="text" id="NOTEVEL" name="NOTEVEL" value="" size=4></B></font>
+					</td>
+				</tr>
+		
+					<tr bgcolor="lightblue">
+				    <td  align=center colspan=1 bgcolor=white>
+					<font color=black><b>CC MESSAGE</b></font></td>
+					<td  align=center >
+						<button onClick="CCDelete()" type="button"><font color=black><b>DELETE</b></font></button>
+					</td>
+					<td align=center>
+						<button onClick="CCInsert()" type="button"><font color=black><b>INSERT</b></font></button>
+					</td>
+				</tr>
+				<tr bgcolor="lightblue">
+					<td align=left colspan=3><font color=black>
+						<B>CC TYPE </B><input type="text" id="CCTYPE" name="CCTYPE" value="" size=4>
+						<B>CC TIME </B><button onClick="OffPlus()" type="button"><b>+</b></button> 
+						<input type="text" id="CCTIME" name="CCTIME" value="" size=4>
+						<button onClick="OffMinus()" type="button"><b>-</b></button>
+						<B>CC VAL</B><input type="text" id="CCAMOUNT" name="CCAMOUNT" value="" size=4>
+					</td>
+				</tr>
+			
+				
+				<tr bgcolor="yellow">
+					<td  align=center colspan=1 bgcolor=white>
+					<font color=black><b>PRG MESSAGE</b></font></td><td align=center>
+						<button onClick="prgDelete()" type="button"><font color=black><b>DELETE</b></font></button>
+					</td><td align=center>
+						<button onClick="prgInsert()" type="button"><font color=black><b>INSERT</b></font></button>
+					</td>
+				</tr>				
+				<tr bgcolor="yellow">
+					<td align=left colspan=3><font color=black>
+						<B>EVENT</B><input type="text" id="PRGMESS" name="PRGMESS" value="" size=4 disabled>
+						<B>TIME <button onClick="OffPlus()" type="button"><b>+</b></button> 
+						<input type="text" id="PRGTIME" name="PRGTIME" value="" size=4>
+						<button onClick="OffMinus()" type="button"><b>-</b></button>
+						<B>PG/BNK NR</B><input type="text" id="PRGNR" name="PRGNR" value="" size=4>
+					</td>
+				</tr>
+			
+			</table>
+						
+			<table bgcolor=white align=center valign=top width=100% >
+					
+						
+				<tr >
+					<td bgcolor=purple colspan=2><font color=white>
+						<B>EV</B>
+						<input type="text" id="EVTYPE" name="EVTYPE" value="" size=15 disabled>
+					<font color=white>
+					<b> LIST</b>
+						<select name="listselect" id="listselect" onChange="listTrSet()">
+							<option value="all">ALL</option>
+							<option value="on/off">ON/OFF</option>
+							<option value="on">ON</option>
+							<option value="cc">CC/PRG/BNK</option>
+						</select>
+						<b>STEP+-</b>
+						<select name="moveMS" id="moveMS" onChange="noteMove()">
+							<option value="1">1</option>
+							<option value="10" selected>10</option>
+							<option value="100">100</option>
+							<option value="1000">1000</option>
+						</select>
+						</font> 
+					</td>
+				</tr>
+				<tr >
+					 <td valign=top id="editorId">
+									<canvas id="editorCanvas" style="border:1px solid #000000;">
+									   Your browser does not support the HTML5 canvas tag.
+									</canvas>
+									
+								 </td>
+							  </tr>
+							  
+				<tr>
+						  
+						   </table>
+						</div>	
+				
+
+<div class="dropdown">
+					<button onClick="menu()" class="dropbtn"><B>SUB MENU 1
+					</button>
+					<div id="menu" class="dropdown-content">
+
+	<table border=2 width=200 bgcolor=#F2D16B>
+  <tr><td>
+				  	
+ 
+
+	 <div class="dropdown">
+					  
+						<button onClick="MD()" class="dropbtn"><B>ALL TRACKS</button>
+						
+							 <div id="MD" class="dropdown-content">
+							  <table bgcolor=white border=1 width=100%>
+								  <tr>
+									 <td bgcolor=lightgrey align=center width=100%>
+										<font color=black>
+										<b>AUDIT INSTRUMENT</b></font>
+
+										 <select name="bank" id="bank" onChange="changeBank()">
+											<option>UNDEFINED INSTRUMENT</option>
+										 </select>
+									   <input type="submit" value="SET INSTRUMENT ON ACTIVE TRACK">
+									 </td>
+								  </tr>
+							   </table>
+								<table border=1 width=100% bgcolor=white>
+								   <tr>
+									<td bgcolor=yellow align=center><input type="button" class="button" value="NEW TRACK" onClick="addTrack()"></td>
+									
+								   </tr>
+								</table>
+								<table border=1 bgcolor=blue>
+								   <tr>
+									  <td id="SIDEid">
+										 <canvas id="sidecanvas" style="border:1px solid #000000;">
+											Your browser does not support the HTML5 canvas tag.
+										 </canvas>
+										 <script>
+											TrackCanvas_init();
+										 </script>
+									  </td>
+								   </tr>
+								</table>
+							 </div>	
+							 
+							 </div>			
+</td></tr><tr><td>
+					<div class="dropdown">
+							<button onClick="ME()" class="dropbtn"><B>METRONOME </button>
+							
+							<div id="ME" class="dropdown-content">
+							   <table border=1 bgcolor=white width=200>
+
+								  <tr>
+									 <td bgcolor="gray">
+										<font color="white">
+
+										   <select name="notevalue" onchange=getFormNoteTime(); id="notevalue" size="1">
+											  <option value="4W">Four whole notes</option>
+											  <option value="3W">Three whole notes</option>
+											  <option value="2W">Two whole notes</option>
+											  <option value="1W">One whole note</option>
+											  <option value="2">Half note</option>
+											  <option selected value="4">1/4 note</option>
+											  <option value="8">1/8 note</option>
+											  <option value="16">1/16 note</option>
+											  <option value="32">1/32 note</option>
+											  <option value="64">1/64 note</option>
+										   </select>
+
+										</font>
+									 </td>
+								  </tr>
+
+								  <tr >
+									 <td bgcolor=gray >
+										<font color="white">
+
+										   <select name="dotnote" id="dotnote" onchange= getFormNoteTime(); size="1">
+											  <option selectED value="NO">DOT OFF</option>
+											  <option value="YES">DOT ON</option>
+										   </select>
+									  </td></tr><tr><td>
+
+										   <b>Note Length </b><input name="delaytime" id="delaytime" size="4" disabled>ms
+										</font>
+									 </td>
+								  </tr>
+							   </table>
+							</div>						 
+						</div>
+					</td></tr><tr><td>
+						
+	 					
+	 <div class="dropdown">
+			<button onClick="INS()" class="dropbtn"> 
+			<b>INSTRUMENTFILES</b>
+			</button>
+			<div id="INS" class="dropdown-content">
+						  <button class="button" ><label class="custom-file-upload" >
+							<input type="file"/ id="insToLoad" onchange="loadInsFile()"><B> Load instrument *.ins</B></button>
+							
+							</label> 
+							<BR>
+							<TEXTAREA id="soundcollection" rows=20 cols=56></TEXTAREA>
+							<BR>
+							<IMG SRC="PICS\N364.jpg" height=70% width=100%></IMG>
+	</div></div>
+
+
+
+				  </td></tr><tr><td>
+				  
+				  
+				  
+					<div class="dropdown">
+					<button onClick="TT()" class="dropbtn"><B>CTRL KORG 168RC</button>
+					<div id="TT" class="dropdown-content">
+				   
+							   <table bgcolor=black border=1 width=1890 height=900> 
+							   <tr height=20 bgcolor=lightblue>
+							   <td align=middle valign=top><b>Channel 1</b></td>
+							   <td align=middle valign=top><b>Channel 2</b></td>
+								<td align=middle valign=top><b>Channel 3</b></td>
+							   <td align=middle valign=top><b>Channel 4</b></td>
+							   <td align=middle valign=top><b>Channel 5</b></td>
+							   <td align=middle valign=top><b>Channel 6</b></td>
+								<td align=middle valign=top><b>Channel 7</b></td>
+							   <td align=middle valign=top><b>Channel 8</b></td>
+							   <td align=middle valign=top><b>Channel 9</b></td>
+							   <td align=middle valign=top><b>Channel 10</b></td>
+							   <td align=middle valign=top><b>Channel 11</b></td>
+							   <td align=middle valign=top><b>Channel 12</b></td>
+							   <td align=middle valign=top><b>Channel 13</b></td>
+							   <td align=middle valign=top><b>Channel 14</b></td>
+							   <td align=middle valign=top><b>Channel 15</b></td>
+							   <td align=middle valign=top><b>Channel 16</b></td>
+							   </tr>
+							   
+							   <tr bgcolor=white><td valign=bottom align=middle>
+							   </td></tr>
+							   <tr bgcolor=white height=50>
+							   <td valign=bottom align=middle>
+							   <b> MUTE: <input id="muteChan1" onChange="korgChanMute()" type="checkbox"  disabled><br>
+								  SOLO: <input id="soloChan1" onChange="korgChanSolo()" type="checkbox"  disabled></b>
+							   </td>
+								<td valign=bottom align=middle>
+							   <b> MUTE: <input id="muteChan2" onChange="korgChanMute()" type="checkbox"  disabled><br>
+								  SOLO: <input id="soloChan2" onChange="korgChanSolo()" type="checkbox"  disabled></b>
+							   </td>
+								<td valign=bottom align=middle>
+							   <b> MUTE: <input id="muteChan3" onChange="korgChanMute()" type="checkbox"  disabled><br>
+								  SOLO: <input id="soloChan3" onChange="korgChanSolo()" type="checkbox"  disabled></b>
+							   </td>
+								<td valign=bottom align=middle>
+							   <b> MUTE: <input id="muteChan4" onChange="korgChanMute()" type="checkbox"  disabled><br>
+								  SOLO: <input id="soloChan4" onChange="korgChanSolo()" type="checkbox"  disabled></b>
+							   </td>
+								<td valign=bottom align=middle>
+							   <b> MUTE: <input id="muteChan5" onChange="korgChanMute()" type="checkbox"  disabled><br>
+								  SOLO: <input id="soloChan5" onChange="korgChanSolo()" type="checkbox"  disabled></b>
+							   </td>
+								<td valign=bottom align=middle>
+							   <b> MUTE: <input id="muteChan6" onChange="korgChanMute()" type="checkbox"  disabled><br>
+								  SOLO: <input id="soloChan6" onChange="korgChanSolo()" type="checkbox"  disabled></b>
+							   </td>
+								<td valign=bottom align=middle>
+							   <b> MUTE: <input id="muteChan7" onChange="korgChanMute()" type="checkbox"  disabled><br>
+								  SOLO: <input id="soloChan7" onChange="korgChanSolo()" type="checkbox"  disabled></b>
+							   </td>
+								<td valign=bottom align=middle>
+							   <b> MUTE: <input id="muteChan8" onChange="korgChanMute()" type="checkbox"  disabled><br>
+								  SOLO: <input id="soloChan8" onChange="korgChanSolo()" type="checkbox"  disabled></b>
+							   </td>
+								<td valign=bottom align=middle>
+							   <b> MUTE: <input id="muteChan9" onChange="korgChanMute()" type="checkbox"  disabled><br>
+								  SOLO: <input id="soloChan9" onChange="korgChanSolo()" type="checkbox"  disabled></b>
+							   </td>
+								<td valign=bottom align=middle>
+							   <b> MUTE: <input id="muteChan10" onChange="korgChanMute()" type="checkbox"  disabled><br>
+								  SOLO: <input id="soloChan10" onChange="korgChanSolo()" type="checkbox"  disabled></b>
+							   </td>
+								<td valign=bottom align=middle>
+							   <b> MUTE: <input id="muteChan11" onChange="korgChanMute()" type="checkbox"  disabled><br>
+								  SOLO: <input id="soloChan11" onChange="korgChanSolo()" type="checkbox"  disabled></b>
+							   </td>
+								<td valign=bottom align=middle>
+							   <b> MUTE: <input id="muteChan12" onChange="korgChanMute()" type="checkbox"  disabled><br>
+								  SOLO: <input id="soloChan12" onChange="korgChanSolo()" type="checkbox"  disabled></b>
+							   </td>
+								<td valign=bottom align=middle>
+							   <b> MUTE: <input id="muteChan13" onChange="korgChanMute()" type="checkbox"  disabled><br>
+								  SOLO: <input id="soloChan13" onChange="korgChanSolo()" type="checkbox"  disabled></b>
+							   </td>
+								<td valign=bottom align=middle>
+							   <b> MUTE: <input id="muteChan14" onChange="korgChanMute()" type="checkbox"  disabled><br>
+								  SOLO: <input id="soloChan14" onChange="korgChanSolo()" type="checkbox"  disabled></b>
+							   </td>
+								<td valign=bottom align=middle>
+							   <b> MUTE: <input id="muteChan15" onChange="korgChanMute()" type="checkbox"  disabled><br>
+								  SOLO: <input id="soloChan15" onChange="korgChanSolo()" type="checkbox"  disabled></b>
+							   </td>
+								<td valign=bottom align=middle>
+							   <b> MUTE: <input id="muteChan16" onChange="korgChanMute()" type="checkbox"  disabled><br>
+								  SOLO: <input id="soloChan16" onChange="korgChanSolo()" type="checkbox"  disabled></b>
+							   </td>
+							   
+							   </tr>
+								 
+								 <tr bgcolor=white height=50>
+								 <td valign=bottom align=middle>	<B>PAN</B><BR><input type="range" onChange="korgpan()" id="korgpan1" min="0" max="127" orient="horisontal"/></td>
+								 <td valign=bottom align=middle>	<B>PAN</B><BR><input type="range" onChange="korgpan()" id="korgpan2" min="0" max="127" orient="horisontal"/></td>
+								 <td valign=bottom align=middle>	<B>PAN</B><BR><input type="range" onChange="korgpan()" id="korgpan3" min="0" max="127" orient="horisontal"/></td>
+								 <td valign=bottom align=middle>	<B>PAN</B><BR><input type="range" onChange="korgpan()" id="korgpan4" min="0" max="127" orient="horisontal"/></td>
+								 <td valign=bottom align=middle>	<B>PAN</B><BR><input type="range" onChange="korgpan()" id="korgpan5" min="0" max="127" orient="horisontal"/></td>
+								 <td valign=bottom align=middle>	<B>PAN</B><BR><input type="range" onChange="korgpan()" id="korgpan6" min="0" max="127" orient="horisontal"/></td>
+								 <td valign=bottom align=middle>	<B>PAN</B><BR><input type="range" onChange="korgpan()" id="korgpan7" min="0" max="127" orient="horisontal"/></td>
+								 <td valign=bottom align=middle>	<B>PAN</B><BR><input type="range" onChange="korgpan()" id="korgpan8" min="0" max="127" orient="horisontal"/></td>
+								 <td valign=bottom align=middle>	<B>PAN</B><BR><input type="range" onChange="korgpan()" id="korgpan9" min="0" max="127" orient="horisontal"/></td>
+								 <td valign=bottom align=middle>	<B>PAN</B><BR><input type="range" onChange="korgpan()" id="korgpan10" min="0" max="127" orient="horisontal"/></td>
+								 <td valign=bottom align=middle>	<B>PAN</B><BR><input type="range" onChange="korgpan()" id="korgpan11" min="0" max="127" orient="horisontal"/></td>
+								 <td valign=bottom align=middle>	<B>PAN</B><BR><input type="range" onChange="korgpan()" id="korgpan12" min="0" max="127" orient="horisontal"/></td>
+								 <td valign=bottom align=middle>	<B>PAN</B><BR><input type="range" onChange="korgpan()" id="korgpan13" min="0" max="127" orient="horisontal"/></td>
+								 <td valign=bottom align=middle>	<B>PAN</B><BR><input type="range" onChange="korgpan()" id="korgpan14" min="0" max="127" orient="horisontal"/></td>
+								 <td valign=bottom align=middle>	<B>PAN</B><BR><input type="range" onChange="korgpan()" id="korgpan15" min="0" max="127" orient="horisontal"/></td>
+								 <td valign=bottom align=middle>	<B>PAN</B><BR><input type="range" onChange="korgpan()" id="korgpan16" min="0" max="127" orient="horisontal"/></td>
+								 </tr>
+								 
+								 <tr bgcolor=chartreuse height=120>
+								 <td valign=bottom align=middle>	<B>VOLUME</B><BR><input type="range" onChange="korgvol(this.id,this.value)" id="korgvol1" min="0" max="127" orient="vertical"/></td>
+								 <td valign=bottom align=middle>	<B>VOLUME</B><BR><input type="range" onChange="korgvol(this.id,this.value)" id="korgvol2" min="0" max="127" orient="vertical"/></td>
+								 <td valign=bottom align=middle>	<B>VOLUME</B><BR><input type="range" onChange="korgvol(this.id,this.value)" id="korgvol3" min="0" max="127" orient="vertical"/></td>
+								 <td valign=bottom align=middle>	<B>VOLUME</B><BR><input type="range" onChange="korgvol(this.id,this.value)" id="korgvol4" min="0" max="127" orient="vertical"/></td>
+								 <td valign=bottom align=middle>	<B>VOLUME</B><BR><input type="range" onChange="korgvol(this.id,this.value)" id="korgvol5" min="0" max="127" orient="vertical"/></td>
+								 <td valign=bottom align=middle>	<B>VOLUME</B><BR><input type="range" onChange="korgvol(this.id,this.value)" id="korgvol6" min="0" max="127" orient="vertical"/></td>
+								 <td valign=bottom align=middle>	<B>VOLUME</B><BR><input type="range" onChange="korgvol(this.id,this.value)" id="korgvol7" min="0" max="127" orient="vertical"/></td>
+								 <td valign=bottom align=middle>	<B>VOLUME</B><BR><input type="range" onChange="korgvol(this.id,this.value)" id="korgvol8" min="0" max="127" orient="vertical"/></td>
+								 <td valign=bottom align=middle>	<B>VOLUME</B><BR><input type="range" onChange="korgvol(this.id,this.value)" id="korgvol9" min="0" max="127" orient="vertical"/></td>
+								 <td valign=bottom align=middle>	<B>VOLUME</B><BR><input type="range" onChange="korgvol(this.id,this.value)" id="korgvol10" min="0" max="127" orient="vertical"/></td>
+								 <td valign=bottom align=middle>	<B>VOLUME</B><BR><input type="range" onChange="korgvol(this.id,this.value)" id="korgvol11" min="0" max="127" orient="vertical"/></td>
+								 <td valign=bottom align=middle>	<B>VOLUME</B><BR><input type="range" onChange="korgvol(this.id,this.value)" id="korgvol12" min="0" max="127" orient="vertical"/></td>
+								 <td valign=bottom align=middle>	<B>VOLUME</B><BR><input type="range" onChange="korgvol(this.id,this.value)" id="korgvol13" min="0" max="127" orient="vertical"/></td>
+								 <td valign=bottom align=middle>	<B>VOLUME</B><BR><input type="range" onChange="korgvol(this.id,this.value)" id="korgvol14" min="0" max="127" orient="vertical"/></td>
+								 <td valign=bottom align=middle>	<B>VOLUME</B><BR><input type="range" onChange="korgvol(this.id,this.value)" id="korgvol15" min="0" max="127" orient="vertical"/></td>
+								 <td valign=bottom align=middle>	<B>VOLUME</B><BR><input type="range" onChange="korgvol(this.id,this.value)" id="korgvol16" min="0" max="127" orient="vertical"/></td>
+								</tr></table>
+					</div></div>
+					</td></tr>
+				
+
+				  
+				  
+				  
+					
+				
+		<tr>
+
+	<td>
+
+	<div class="dropdown">
+		 <button onClick="VD()" class="dropbtn"> 
+		   <b>VIRT.DRUMPADS</b>
+		 </button>
+	 <div id="VD" class="dropdown-content">
+	<table width=100% border=1 bgcolor=white>
+	<tr bgcolor=darkblue><td width=17%>
+	   <table bgcolor=red width=100% height=100% border=1 onMouseOver="mouseOverDrum()" onMouseOut="mouseOutDrum()">
+	   <tr>
+	  
+						<td  align=middle>
+							  <input type="range" onChange="newDrumVol()" id="vol0" min="0" max="127" orient="vertical" /> <BR>
+		<FONT COLOR=WHITE> VOL</FONT>
+						</td> <td align=middle>
+						 <div id="PAD0"></div>
+						  <P>
+						   <button class="drum"  onClick="drumNote(48,64,'DR')" onmouseout="drumStop(48)">
+									<h2>0</h2></button><P>
+				   		</td>
+						
+						<td bgcolor=#a81064 align=middle>
+							<input type="range" onChange="newDrumVol()" id="vol1" min="0" max="127" orient="vertical" /><BR>
+		<FONT COLOR=WHITE> VOL</FONT>
+						</td>
+						<td align=middle bgcolor=#a81064>
+		 <div id="PAD1"></div>
+						  
+							<P>
+								<button class="drum" onClick="drumNote(49,64,'DR')" onmouseout="drumStop(49)">
+									<h2>1</h2></button> 
+					   </td>
+					   <td align=middle>
+							<input type="range" onChange="newDrumVol()" id="vol2" min="0" max="127" orient="vertical" /><BR>
+		<FONT COLOR=WHITE> VOL</FONT>
+						</td> 
+						<td align=middle>
+		 <div id="PAD2"></div>
+						  
+							<P>
+								<button class="drum" onClick="drumNote(50,64,'DR')" onmouseout="drumStop(50)">
+									<h2>2</h2></button>
+						</td>
+
+						<td align=middle bgcolor=#a81064>
+							<input type="range" onChange="newDrumVol()" id="vol3" min="0" max="127" orient="vertical" /><BR>
+		<FONT COLOR=WHITE> VOL</FONT>
+						</td>
+						<td align=middle bgcolor=#a81064>
+			 <div id="PAD3"></div>
+						   
+							<P>
+								<button class="drum" onClick="drumNote(51,64,'DR')" onmouseout="drumStop(51)">
+									<h2>3</h2></button>
+						</td>
+						<td align=middle>
+							<input type="range" onChange="newDrumVol()" id="vol4" min="0" max="127" orient="vertical" /><BR>
+		<FONT COLOR=WHITE> VOL</FONT>
+						</td>
+						<td align=middle>
+		   <div id="PAD4"></div>
+						   
+							<P>
+								<button class="drum" onClick="drumNote(52,64,'DR')" onmouseout="drumStop(52)">
+									<h2>4</h2></button>
+						</td>
+						<td align=middle bgcolor=#a81064>
+							<input type="range" id="vol5" onChange="newDrumVol()" min="0" max="127" orient="vertical" /><BR>
+		<FONT COLOR=WHITE> VOL</FONT>
+						</td>
+						<td bgcolor=#a81064 align=middle>
+		 <div id="PAD5"></div>
+							
+							<P>
+								<button class="drum" onClick="drumNote(53,64,'DR')" onmouseout="drumStop(53)">
+									<h2>5</h2></button>
+						</td>
+						<td align=middle>
+							<input type="range" onChange="newDrumVol()" id="vol6" min="0" max="127" orient="vertical" /><BR>
+		<FONT COLOR=WHITE> VOL</FONT>
+						</td>
+						<td align=middle>
+		 <div id="PAD6"></div>
+						   
+							<P>
+								<button class="drum" onClick="drumNote(54,64,'DR')" onmouseout="drumStop(54)">
+									<h2>6</h2></button>
+						</td>
+						<td align=middle bgcolor=#a81064>
+							<input type="range" onChange="newDrumVol()" id="vol7" min="0" max="127" orient="vertical" /><BR>
+		<FONT COLOR=WHITE> VOL</FONT>
+						</td>
+						<td align=middle bgcolor=#a81064> 
+		 <div id="PAD7"></div>
+						   
+							<P>
+								<button class="drum" onClick="drumNote(55,64,'DR')" onmouseout="drumStop(55)">
+									<h2>7</h2></button>
+						</td>
+						
+					</tr>
+					<tr>
+						<td align=middle bgcolor=#a81064>
+							<input type="range" onChange="newDrumVol()" id="vol8" min="0" max="127" orient="vertical" /><BR>
+		<FONT COLOR=WHITE> VOL</FONT>
+						</td>
+						<td align=middle bgcolor=#a81064>
+		 <div id="PAD8"></div>
+						   
+							<P>
+								<button class="drum" onClick="drumNote(56,64,'DR')" onmouseout="drumStop(56)">
+									<h2>8</h2></button>
+						</td>
+						<td align=middle>
+							<input type="range" onChange="newDrumVol()" id="vol9" min="0" max="127" orient="vertical" /><BR>
+		<FONT COLOR=WHITE> VOL</FONT>
+						</td>
+						<td align=middle>
+		   <div id="PAD9"></div>
+						   
+							<P>
+								<button class="drum" onClick="drumNote(57,64,'DR')" onmouseout="drumStop(57)">
+									<h2>9</h2></button>
+						</td>
+						<td align=middle bgcolor=#a81064>
+							<input type="range" onChange="newDrumVol()" id="volA" min="0" max="127" orient="vertical" /><BR>
+		<FONT COLOR=WHITE> VOL</FONT>
+						</td>
+						<td align=middle bgcolor=#a81064>
+			  <div id="PAD10"></div>
+						   
+							<P>
+								<button class="drum" onClick="drumNote(65,64,'DR')" onmouseout="drumStop(65)">
+									<h2>A</h2></button>
+						</td>
+						<td align=middle>
+							<input type="range" onChange="newDrumVol()" id="volB" min="0" max="127" orient="vertical" /><BR>
+		<FONT COLOR=WHITE> VOL</FONT>
+						</td>
+						<td align=middle>
+		 <div id="PAD11"></div>
+						   
+							<P>
+								<button class="drum" onClick="drumNote(66,64,'DR')" onmouseout="drumStop(66)">
+									<h2>B</h2></button>
+						</td>
+						<td align=middle bgcolor=#a81064>
+							<input type="range" onChange="newDrumVol()" id="volC" min="0" max="127" orient="vertical" /><BR>
+					   <FONT COLOR=WHITE> VOL</FONT> 
+					   </td>
+						<td align=middle bgcolor=#a81064>
+		 <div id="PAD12"></div>
+						   
+							<P>
+								<button class="drum" onClick="drumNote(67,64,'DR')" onmouseout="drumStop(67)">
+									<h2>C</h2></button>
+						</td>
+						<td align=middle>
+							<input type="range" onChange="newDrumVol()" id="volD" min="0" max="127" orient="vertical" /><BR>
+		<FONT COLOR=WHITE> VOL</FONT>
+						</td>
+						<td align=middle>
+		 <div id="PAD13"></div>
+						  
+							<P>
+								<button class="drum" onClick="drumNote(68,64,'DR')" onmouseout="drumStop(68)">
+									<h2>D</h2></button>
+						</td>
+						<td align=middle bgcolor=#a81064>
+							<input type="range" onChange="newDrumVol()" id="volE" min="0" max="127" orient="vertical" /><BR>
+		<FONT COLOR=WHITE> VOL</FONT>
+						</td>
+						<td align=middle bgcolor=#a81064>
+		  <div id="PAD14"></div>
+							
+							<P>
+								<button class="drum" onClick="drumNote(69,64,'DR')" onmouseout="drumStop(69)">
+									<h2>E</h2></button>
+						</td>
+						<td align=middle>
+							<input type="range" onChange="newDrumVol()"  id="volF" min="0" max="127" orient="vertical" /><BR>
+		<FONT COLOR=WHITE> VOL</FONT>
+						</td>
+						<td align=middle>
+		 <div id="PAD15"></div>
+							
+							<P>
+								<button class="drum" onClick="drumNote(70,64,'DR')" onmouseout="drumStop(70)">
+									<h2>F</h2></button>
+					   </td>
+						
+					   </tr>
+		   </table> 
+					 
+			  </td></tr></table>
+			  </div>   
+	   </td></tr>
+
+					   
+
+				   
+					
+					<tr><td>
+							<div class="dropdown">
+							<button onClick="MM()" class="dropbtn"><B>MIDI MONITOR</button>
+							<div id="MM" class="dropdown-content">
+							   <b><table> <tr bgcolor=115aa0 height=30><td>
+			<textarea rows=16 cols=120 id="keystream" name="keystream"></textarea>
+			<font color=white><B>BAQ 2 BASIC v0.1 
+							   "HOW WE DID IT IN THE 80"s" "OLDSCHOOL SEQUENSING"</B>
+							   <B>jonas.thornvall@hotmail.com</B></font>
+			</td>
+		</tr></b><br></table>
+			   
+							</div></div>	
+						   </td></tr>
+		<tr><td  bgcolor=cyan>
+
+			<div class="dropdown">
+			<button onClick="LL()" class="dropbtn"><B>LATENCY FIX</B></button>
+			<div id="LL" class="dropdown-content">
+			<table bgcolor=black border=2><tr><td bgcolor=purple>
+			 <button onClick="recLatency();"><B>[PLAY MET] RECORD Notes!</B></button> 	<FONT COLOR=WHITE><B>PUSH/PLAY AND TRY DROP AT LEAST 10 NOTES IN SYNC <BR>
+		
+			   <button onClick="calcDeviation();"><B>CALCULATE RECORDED LATENCY</B></button>
+			<input type="text" align=right size=1 name="Dlatency" id="Dlatency" value="0"></B></font></B><br>
+			<button onClick="correctLatency();"><B>APPLY LATENCY CORRECTION TO RECORDING</B></button><input type="text" align=right size=1 name="Clatency" id="Clatency" value="0">
+			<FONT COLOR=WHITE> <B>MANUAL CORRECTION TO RECORDING</b></font>  <button onClick="plusLatency();" type="button"> + </button><button onClick="minusLatency();" type="button"> - </button>
+			<br><FONT COLOR=CYAN><B>IF RECORDED LATENCY LESS THEN +-20 ms DON'T BOTHER</B></FONT>
+			<textarea rows=12 cols=100 id="timings" name="timings"></textarea>
+			
+			</td></tr></table>
+			   
+							</div></div>	
+						   </td>
+						   </tr>
+	</table>
+	</div>
+
+ 
+	
+
+
+
+
+
+	</td></tr>
+			
+	
+
+	<tr bgcolor=lightgrey>
+		<td valign=top align=left colspan=3>
+
+			
+			
+
+<div class="dropdown">
+	<button onClick="MA()" class="dropbtn"> 
+	<B>LOAD/SAVE SNG</B>
+	</button>
+<div id="MA" class="dropdown-content">
+	<table bgcolor=yellow border=2 align=center valign=top width=100%>
+	
+		<tr bgcolor="orange">
+			<td>
+				<button class="button">
+				<label class="custom-file-upload">
+				<input type="file"/ id="fileToLoad" onchange="openFile()"><font color=white><B>Open Song .btb</B></font>
+				</label>
+				</button>
+			</td>
+			<td>
+				<input id="inputFileName" value="" size=70>	
+			</td>
+		</tr>
+			<tr bgcolor=pink>
+			<td>
+				<button onClick="saveTextAsFile()" class="button">Save Song *.btb </B></button>
+			</td>
+			<td>
+				<input type="text" id="filename" value="frog_sonata.btb" size=70></input>
+			</td>
+		</tr>
+		<tr>
+			<td bgcolor="cyan"> 
+				<font color=black><b>MIDI author </b></font></td><td> <input type="text" name="author" id="author" value="bumblebee" onChange="dataToTextArea()" size=70 >
+				</td></tr>
+	
+				<tr><td><b>Song Name</b></td><td><input type="text" id="songname" value="Frog fatalism" onChange="dataToTextArea()" size=70></input></td></tr>
+				<tr><td><b>Song Author</b></td><td><input type="text" id="songauthor" value="RumpelStiltskin" onChange="dataToTextArea()" size=70></input></td></tr>
+				<tr><td><b>Song Info</b></td><td><input type="text" id="songinfo" value="A dark night in December" onChange="dataToTextArea()" size=70></input></td></tr>
+				<tr><td colspan=2 bgcolor="cyan"><textarea rows=12 cols=100 id="inputTextToSave" name="inputTextToSave"></textarea></td></tr>			
+								
+		<tr height=300>
+			<td colspan= 2 bgcolor="lightgrey">
+				<iframe src="/tone.html" id="midiparser" width=700 height=300></iframe>
+				<!--<iframe src="https://tonejs.github.io/Midi/" id="midiparser" height=300></iframe>-->
+			</td>
+		</tr>
+	</table>
+</div>
+</div>					
+
+<div class="dropdown">
+							<button onClick="inports()" class="dropbtn"> 
+							   <B>MIDI IN PORTS</B>
+						</button>
+							<div id="inports" class="dropdown-content">
+					   <table>  <tr bgcolor=YELLOW><td colspan=3 align=center> 
+	<p alight=right><b> SELECTED INPORTS</b></p>
+	</td></tr>
+	<tr>
+	<!--
+	<td align=left><font color=white>
+	   <select name="in_portsel" id="in_portsel" value="3"></select>           
+	</font></td></tr>
+	-->
+	<tr><td>
+
+	<div id="ports"></div>
+	</td></tr>
+
+
+	<tr bgcolor=yellow><td>
+
+	<b>UNCHECK LOOPBACK</b>
+	</td></tr>
+
+	<tr><td bgcolor=darkblue><B><font color="white">
+	You should use a software synth instead of the SF2 websynth.
+	I recommend SyFonOne. Now a software synth need to be connected via a port, so you will have to install a virtual midi cable. Try loopmidi and do not forget uncheck inport.<br></font>
+	<A HREF="http://www.synthfont.com/Downloads.html" ><font color="cyan">SyFonOne</A> Best SF2 synth
+	<A HREF="https://www.tobias-erichsen.de/software/loopmidi.html"><font color="cyan">LoopMIDI</A> Midi Loopback
+
+	</b><br>
+	</font>
+	</td></tr></table>
+	</div>	
+	</div>
+		<button onClick="newFile()" class="button">
+				<font color="white"><B>New Song "FRESH"</B></font>
+				</button>			
+	 
+	</td></tr>
+
+
+
+						   
+		 			<td colspan=3 align=left bgcolor=lightgrey>
+					
+						   
+			<div class="dropdown">
+			<button onClick="RR()" class="dropbtn"><B>Copy/Paste</B></button>
+			<div id="RR" class="dropdown-content">
+			<table bgcolor=#F2D16B border=2 width=420 >
+			<tr><td align=middle >
+			<b><button onClick="copySelection()" type="button"><b>COPY </b></button>  WITHIN SELECTED BOUNDARY</b>
+			</td></tr>
+			<tr><td align=middle bgcolor="white">
+			<B>PASTE AT BAR,ONE OR MANY->COMMA SEPARATED
+			</td></tr>
+			<tr><td align=middle>
+			<button onClick="pasteSelection()" type="button"><b>PASTE </b></button> <B>AT BAR</B><input type="text" id="paste" name="paste" value=0 size=20>
+			</td></tr>
+			</table>
+			</div></div>	
+					  
+			<div class="dropdown">
+			<button onClick="QQ()" class="dropbtn"><B>Quantize</B></button>
+			<div id="QQ" class="dropdown-content">
+			<table bgcolor=#F2D16B border=2 >
+			<tr><td >
+			<label for="out_channel"><B> Quantization_choice</B></label></td><td>
+										 <select name="quanttype" id="quanttype">
+										 <option>Selected Track</option>
+											<option>Not FIXED YET Boundary Selection</option>
+											
+										 </select>
+			</td></tr>
+			<tr><td>
+			<label for="out_channel"><B> Note value measure</B></label></td><td>
+										 <select name="quantnote" id="quantnote">
+											<option value="4">1/4 note</option>
+											<option value="8">1/8 note</option>
+											<option selected value="16">1/16 note</option>
+											<option value="32">1/32 note</option>
+											<option value="64">1/64 note</option>
+										 </select>
+			</td></tr><tr><td colspan=2 align=middle>
+			
+			<button onClick="renderQuantizeTrack()" type="button"><b>Quantize!</b></button>
+			</td></tr>
+			
+			</table>
+			   
+		   </div></div>	
+		   
+		     <input type="button" class="button" value="ERASE TRACK" onClick="removeTrack()">
+		   </td></tr>
+			
+			
+		<tr><td	bgcolor=purple align=middle><font color=white>
+			
+								<B> DRAWMODE<select name="drawmode" id="cmode">
+											<option value="midinotes">Midi</option>
+											<option value="barnotes">Bars</option>
+										</select>
+						 <input id="piroll" type="checkbox" onChange="checkIfPianoRoll()" checked> <br>
+						CHAR. DRUMS<input id="keyboardlistener" onChange="checkIfCharNotes()" type="checkbox"  disabled>
+						</font></td><td colspan=2 bgcolor=purple><font color=white>
+						<B> <b>DRAW KEYPRESS</b><input id="echo" type="checkbox" onChange=checkIfEchoMessage(); checked><br>
+						 <b>MONITOR ON/OFF</b><input id="monitScreen" type="checkbox" onChange=checkIfMonitor();>
+  
+		</td></tr>
+	
+
+
+	<tr><td height=30% colspan=3 id="trid" bgcolor=darkblue>
+	 
+			<canvas id="trackcanvas" style="border:1px solid #000000;">
+			
+			   Your browser does not support the HTML5 canvas tag.
+			</canvas>
+		</td></tr>
+		
+
+		
+		
+			
+		
+
+				  <tr bgcolor=purple><td align=center> <font color=white>		  
+						<b>TRACK</b><button onClick="trackPlus()" type="button"><b>+</b></button>
+						<input type="text" id="track" name="track" value=1 size=1 onkeypress="changeTrack()">
+						<button onClick="trackMinus()" type="button"><b>-</b></button></font>
+					</td><td align=center>
+						<font color=white>
+						 <b> MUTE </b><input id="mutetrack" type="checkbox" onChange="checkIfMute()"></font>
+						<font color=white>
+						
+						<b> SOLO </b><input id="solostate" name="solostate" type="checkbox" onChange="checkIfSolo()" ></font>
+						</td></tr>	
+						<tr bgcolor=purple>
+							<td colspan=3 align=center>
+								<font color=white><b>MIDI OUTPORT </b>
+								<select name="out_portsel" id="out_portsel" onChange="changeOutPort()" value="3">
+								</select>
+								</font>
+							</td>
+						</tr>
+						
+				<tr bgcolor=cyan>
+							<td colspan=1 align=center>
+								<font color=black> <b>SYNTH </b></font>
+								<select id=synthval onChange=synthChoice();>
+								<option value="SC7(GM)" selected>Roland SC7</option>
+								<option value="N364">Korg N364</option>
+								<option value="SF2">SF2 synth</option>
+								</select> 
+							</td>
+							<td colspan=2 align=center>
+								<div id="bankOptList"></div>
+							</td>
+						</tr>
+						
+			
+						
+					
+						
+						<tr bgcolor=white>
+							<td  align=center>
+								<label for="out_channel"><B>MIDI Ch.</B></label>
+								<select name="out_channel" id="out_channel" onChange="changeMidiChannel()">
+									<option>1</option>
+									<option>2</option>
+									<option>3</option>
+									<option>4</option>
+									<option>5</option>
+									<option>6</option>
+									<option>7</option>
+									<option>8</option>
+									<option>9</option>
+									<option>10</option>
+									<option>11</option>
+									<option>12</option>
+									<option>13</option>
+									<option>14</option>
+									<option>15</option>
+									<option>16</option>
+								</select></td><td colspan=2>
+								<div id="instOptList"></div>
+							</td>
+						</tr>	
+						
+						<tr bgcolor=white>
+							<td  align=center>
+							<b>PG </b>
+							<button onClick="pgPlus()" type="button"><b>+</b></button>
+							<input type="text" id="prog_sel" name="prog_sel" value=0 size=1 onkeypress="changeProgram()">
+							<button onClick="pgMinus()" type="button"><b>-</b></button>
+						</td>
+						<td  align=center> 
+							<b>Track Name</b><input type="text"  value=untitled name="nametrack" id="nametrack" size=12 onkeypress="changeTrackName()"> 
+						</td>
+				</tr>
+				
+					
+				
+				<tr>
+					<td align=right>
+						<B>VOL  <input type="range" onChange="setVol()" id="volID" min="0" max="127" value="127" orient="horisontal" /><br>
+						<B>PAN  <input type="range" onChange="setPan()" id="panID" min="0" max="127" value="63" orient="horisontal" /><br>
+						<B>SUS. <input type="range" onChange="setHold()" id="holdID" min="0" max="127" value="10" orient="horisontal"/>
+					</td>
+					<td align=right >
+						 <b>REVERB</b>
+						 <input type="range" onChange="setRev()" id="revID" min="0" max="127" value="40" orient="horisontal" /><br>
+						 <b>CHORUS</b>
+						 <input type="range" onChange="setChor()" id="chorID" min="0" max="127" value="25" orient="horisontal" /><br>
+						  <b>MOD.</b>
+						 <input type="range" onChange="setMod()" id="modID" min="0" max="127" value="0" orient="horisontal" />
+					</td>
+				</tr>
+		 				
+					<tr>
+					
+					<td  bgcolor="yellow" align=middle>
+						<button onClick="pagePlus()" type="button"><b>Sel Page+</b></button>	
+						<button onClick="pageMinus()" type="button"><b>Sel Page-</b></button>	
+					</td>
+					<td bgcolor="yellow" align=middle>
+						<button onClick="Focus()" type="button"><b>Focus Select</b></button>	
+						<button onClick="FocusDrop()" type="button"><b>Drop Focus</b></button>
+					</td>
+				</tr>		
+						
+				<tr bgcolor="yellow">
+					<td  align=center>
+					<select name="recordmode" id="recordmode" size="1">
+					   <option selectED value="REPLACE">REPLACE
+					   <option value="OVERDUB">OVERDUB
+					</select>
+						<button onClick="recINIT()" type="button" style="background-color: red">
+						<font color="white">
+						<b>Rec &#9673</b></font>
+						</button>
+					</td>
+					<td bgcolor=white>
+					<B>REC NAME</B><input type="text" id="patname" name="patname" value="NONAME" size=10>
+					</td>
+					
+				</tr>
+				
+				<tr>
+					<td colspan=3 align=middle bgcolor=yellow>
+					   	<button onClick="rw()" type="button"><b> NOT YET! &#9668 </b></button>
+							<select name="speed" id="speed" onChange="speedchange()">
+								<option value="1" selected>1x</option>
+								<option value="2" >2x</option>
+								<option value="3" >3x</option>
+								<option value="4" >4x</option>
+								<option value="5" >5x</option>
+								<option value="6">6x</option>
+								<option value="7">7x</option>
+								<option value="7">8x</option>
+								<option value="9">9x</option>
+								<option value="10">10x</option>
+							</select>
+						<button onClick="playInit()" type="button"><b> PLAY &#9658 </b></button>
+						<button onClick="stop()" type="button"><b>Stop &#9635</b></button>
+						<button onClick="pause()" type="button"><b>Pause ll </b></button>
+					</td>
+				</tr>
+			
+				<tr>
+					<td colspan=3 bgcolor=yellow align=middle>
+						<font color=black ><b>SELECT BOUNDS </b></font>
+						<button onClick="RSrangeMinus()" type="button"><b>-</b></button>
+						<input type="text" id="startbar" name="startbar" value=0 size=1 onchange=setRangeRec();>
+						<button onClick="RSrangePlus()" type="button"><b>+</b></button>
+						<b>|</b> 
+						<button onClick="RErangeMinus()" type="button"><b>-</b></button>
+						<input type="text" id="endbar" name="endbar" value=8 size=1 onchange=setRangeRec();>
+						<button onClick="RErangePlus()" type="button"><b>+</b></button>
+					</td>
+				</tr>
+				
+				<tr>
+					<td colspan=3 bgcolor=yellow align=middle>
+					<B>TIMESIG.</B><input type="text"	 name="trick" id="trick" size="1"  value="4">
+					<B>/</B> <input type="text" name="treat" id="treat" size="1" value="4">
+						<b> MET. </b> 
+						<select id=metvalue onChange=metronomeInit();>
+							<option value="N364">N364</option>
+							<option value="SC7(GM)">SC7(GM)</option>				               
+							<option value="SF2">SF2</option>
+						</select>           
+						<b>ON/OFF </b> <input id="metSet" name="metSet" onChange=metroState(); type="checkbox" checked>          
+					</td>
+				</tr>
+					  
+						 <tr>
+						 <td colspan=3 bgcolor=yellow align=middle>
+							<b><font size=2>PPQ</b><input type=text name="ppq" id="ppq" size="1" onchange=getFormNoteTime(); value="960" disabled>
+							<b><font size=2>BPM</b><input type=text name="bpm" id="bpm" size="1" onchange=getFormNoteTime(); value="100">
+							<b> TIME-LAPSE </b>
+							<input type="text" id="recstart" name="recstart" value=0 size=1 disabled>
+							<b> - </b> <input type="text" id="recend" name="recend" value=0 size=1 disabled><b> ms</b></font>
+					 </td>
+				   </tr>
+			  </table>
+			</td>    
+		
+		<td id="midid" bgcolor=darkblue>
+				<table border=2 bgcolor=#F2D16B width=100%>    
+					<tr bgcolor=lightgrey>
+					<td align=center >
+							<b>LOCK LENGTH</b> <input id="lockedit" name="lockedit" onChange=metroState(); type="checkbox" checked>
+						<font color=black size=4><b>RENDER FPS</b></font>
+						<input type="text" id="FPS" name="FPS" value=24 size=1 onkeypress="BarsFPSupdate()">
+					</td>
+					<td  align=center >
+						<font color=black size=4><b>Bars
+						<input type="text" id="vrange" name="vrange" value=0 onkeypress="BarsFPSupdate()" size=1> </b></font>
+					</td>
+					<td align=center>
+						<font color=black size=4><b> Bar MODE </b> </font>
+						<select id=barmode onChange=initScrollBar();>
+						<option value="barnr" selected>Bars</option>
+						<option value="timestamp" >Seconds</option>
+						<option value="framenr">Frames</option>
+						</select>
+					</td>
+					<td align=center><font color=black size=4>
+						<b>StartBar </b><button onClick="SrangePlus()" type="button"><b>+</b></button>
+						<input type="text" id="SB" name="SB" value=0 size=1 onChange="getEditBars()">
+						<button onClick="SrangeMinus()" type="button"><b>-</b></button>
+						<b>Time 0</b><input type="text" id="EditStart" name="EditStart"  value=0 size=1 disabled></font>
+					</td>
+					<td align=center>
+						<font color=black size=4><b>EndBar</b><button onClick="ErangePlus()" type="button"><b>+</b></button>
+						<input type="text" id="EB" name="EB" value=40 size=1 onChange="getEditBars()">
+						<button onClick="ErangeMinus()" type="button"><b>-</b></button>
+						<b>Time 1 </b><input type="text" id="EditEnd" name="EditEnd"  value=0 size=8 disabled></font>
+					</td>	
+				</tr>
+				<tr>
+					<td colspan=9>
+						<input type="hidden" id="status" name="status" value="listen" disabled>
+						<canvas id="maincanvas" style="border:1px solid #000000;">
+							Your browser does not support the HTML5 canvas tag.
+						</canvas>
+						<script>
+							main_canvas_init();
+						</script>
+					</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+	
+	
+
+
+	
+</table>
+
+
+
+
+		
+
+
+
+	
+	
+
+</body>
+</html>
