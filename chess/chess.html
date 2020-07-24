@@ -1,0 +1,318 @@
+<HTML><body bgcolor="purple">
+<b><font size="5" color="white">CHESS | DEEP PURPLE | </font></b><font size="5" color="white">
+Your color </font><select name="piececolor" id="piececolor" onchange="chess()">
+  <option value="random">random</option>
+  <option value="white">white</option>
+  <option value="black">black</option>
+</select>
+<p>
+<div id='info'></div>
+
+<canvas id="myCanvas" width="1500" height="850"></canvas>
+</body></html>
+<script>
+var c = document.getElementById("myCanvas");
+var ctm = c.getContext("2d");
+let tileElement=[];
+
+//  tileElement[] = {
+//    tileColor : "",
+//    tileName : "",
+//    occupied : false,
+//    pieceColor: "",
+//    pieceType: "",
+//    X:0,
+//    Y:0,
+//	  W:0,	
+//	  H:0,	
+// };
+
+function initTiles(){
+	tileElement.push({tileColor:"W",tileName:"H1",occupied:true,pieceColor:"W",pieceType:"R",startMark:false});
+ 	tileElement.push({tileColor:"B",tileName:"G1", occupied:true,pieceColor:"W",pieceType:"N",startMark:false});
+	tileElement.push({tileColor:"W",tileName:"F1", occupied:true,pieceColor:"W",pieceType:"B",startMark:false});
+	tileElement.push({tileColor:"B",tileName:"E1", occupied:true,pieceColor:"W",pieceType:"K",startMark:false});
+	tileElement.push({tileColor:"W",tileName:"D1", occupied:true,pieceColor:"W",pieceType:"Q",startMark:false});
+	tileElement.push({tileColor:"B",tileName:"C1", occupied:true,pieceColor:"W",pieceType:"B",startMark:false});
+	tileElement.push({tileColor:"W",tileName:"B1", occupied:true,pieceColor:"W",pieceType:"N",startMark:false});
+	tileElement.push({tileColor:"B",tileName:"A1", occupied:true,pieceColor:"W",pieceType:"R",startMark:false});
+	
+	tileElement.push({tileColor:"B",tileName:"H2", occupied:true,pieceColor:"W",pieceType:"P",startMark:false});
+	tileElement.push({tileColor:"W",tileName:"G2", occupied:true,pieceColor:"W",pieceType:"P",startMark:false});
+	tileElement.push({tileColor:"B",tileName:"F2", occupied:true,pieceColor:"W",pieceType:"P",startMark:false});
+	tileElement.push({tileColor:"W",tileName:"E2", occupied:true,pieceColor:"W",pieceType:"P",startMark:false});
+	tileElement.push({tileColor:"B",tileName:"D2", occupied:true,pieceColor:"W",pieceType:"P",startMark:false});
+	tileElement.push({tileColor:"W",tileName:"C2", occupied:true,pieceColor:"W",pieceType:"P",startMark:false});
+	tileElement.push({tileColor:"B",tileName:"B2", occupied:true,pieceColor:"W",pieceType:"P",startMark:false});
+	tileElement.push({tileColor:"W",tileName:"A2", occupied:true,pieceColor:"W",pieceType:"P",startMark:false});
+	
+	tileElement.push({tileColor:"W",tileName:"H3", occupied:false,pieceColor:"",pieceType:"",startMark:false});
+	tileElement.push({tileColor:"B",tileName:"G3", occupied:false,pieceColor:"",pieceType:"",startMark:false});
+	tileElement.push({tileColor:"W",tileName:"F3", occupied:false,pieceColor:"",pieceType:"",startMark:false});
+	tileElement.push({tileColor:"B",tileName:"E3", occupied:false,pieceColor:"",pieceType:"",startMark:false});
+	tileElement.push({tileColor:"W",tileName:"D3", occupied:false,pieceColor:"",pieceType:"",startMark:false});
+	tileElement.push({tileColor:"B",tileName:"C3", occupied:false,pieceColor:"",pieceType:"",startMark:false});
+	tileElement.push({tileColor:"W",tileName:"B3", occupied:false,pieceColor:"",pieceType:"",startMark:false});
+	tileElement.push({tileColor:"B",tileName:"A3", occupied:false,pieceColor:"",pieceType:"",startMark:false});
+	
+	tileElement.push({tileColor:"B",tileName:"H4", occupied:false,pieceColor:"",pieceType:"",startMark:false});
+	tileElement.push({tileColor:"W",tileName:"G4", occupied:false,pieceColor:"",pieceType:"",startMark:false});
+	tileElement.push({tileColor:"B",tileName:"F4", occupied:false,pieceColor:"",pieceType:"",startMark:false});
+	tileElement.push({tileColor:"W",tileName:"E4", occupied:false,pieceColor:"",pieceType:"",startMark:false});
+	tileElement.push({tileColor:"B",tileName:"D4", occupied:false,pieceColor:"",pieceType:"",startMark:false});
+	tileElement.push({tileColor:"W",tileName:"C4", occupied:false,pieceColor:"",pieceType:"",startMark:false});
+	tileElement.push({tileColor:"B",tileName:"B4", occupied:false,pieceColor:"",pieceType:"",startMark:false});
+	tileElement.push({tileColor:"W",tileName:"A4", occupied:false,pieceColor:"",pieceType:"",startMark:false});
+	
+	tileElement.push({tileColor:"W",tileName:"H5", occupied:false,pieceColor:"",pieceType:"",startMark:false});
+	tileElement.push({tileColor:"B",tileName:"G5", occupied:false,pieceColor:"",pieceType:"",startMark:false});
+	tileElement.push({tileColor:"W",tileName:"F5", occupied:false,pieceColor:"",pieceType:"",startMark:false});
+	tileElement.push({tileColor:"B",tileName:"E5", occupied:false,pieceColor:"",pieceType:"",startMark:false});
+	tileElement.push({tileColor:"W",tileName:"D5", occupied:false,pieceColor:"",pieceType:"",startMark:false});
+	tileElement.push({tileColor:"B",tileName:"C5", occupied:false,pieceColor:"",pieceType:"",startMark:false});
+	tileElement.push({tileColor:"W",tileName:"B5", occupied:false,pieceColor:"",pieceType:"",startMark:false});
+	tileElement.push({tileColor:"B",tileName:"A5", occupied:false,pieceColor:"",pieceType:"",startMark:false});
+	
+	tileElement.push({tileColor:"B",tileName:"H6", occupied:false,pieceColor:"",pieceType:"",startMark:false});
+	tileElement.push({tileColor:"W",tileName:"G6", occupied:false,pieceColor:"",pieceType:"",startMark:false});
+	tileElement.push({tileColor:"B",tileName:"F6", occupied:false,pieceColor:"",pieceType:"",startMark:false});
+	tileElement.push({tileColor:"W",tileName:"E6", occupied:false,pieceColor:"",pieceType:"",startMark:false});
+	tileElement.push({tileColor:"B",tileName:"D6", occupied:false,pieceColor:"",pieceType:"",startMark:false});
+	tileElement.push({tileColor:"W",tileName:"C6", occupied:false,pieceColor:"",pieceType:"",startMark:false});
+	tileElement.push({tileColor:"B",tileName:"B6", occupied:false,pieceColor:"",pieceType:"",startMark:false});
+	tileElement.push({tileColor:"W",tileName:"A6", occupied:false,pieceColor:"",pieceType:"",startMark:false});
+	
+	tileElement.push({tileColor:"W",tileName:"H7", occupied:true,pieceColor:"B",pieceType:"P",startMark:false});
+	tileElement.push({tileColor:"B",tileName:"G7", occupied:true,pieceColor:"B",pieceType:"P",startMark:false});
+	tileElement.push({tileColor:"W",tileName:"F7", occupied:true,pieceColor:"B",pieceType:"P",startMark:false});
+	tileElement.push({tileColor:"B",tileName:"E7", occupied:true,pieceColor:"B",pieceType:"P",startMark:false});
+	tileElement.push({tileColor:"W",tileName:"D7", occupied:true,pieceColor:"B",pieceType:"P",startMark:false});
+	tileElement.push({tileColor:"B",tileName:"C7", occupied:true,pieceColor:"B",pieceType:"P",startMark:false});
+	tileElement.push({tileColor:"W",tileName:"B7", occupied:true,pieceColor:"B",pieceType:"P",startMark:false});
+	tileElement.push({tileColor:"B",tileName:"A7", occupied:true,pieceColor:"B",pieceType:"P",startMark:false});
+	
+	tileElement.push({tileColor:"B",tileName:"H8", occupied:true,pieceColor:"B",pieceType:"R",startMark:false});
+	tileElement.push({tileColor:"W",tileName:"G8", occupied:true,pieceColor:"B",pieceType:"N",startMark:false});
+	tileElement.push({tileColor:"B",tileName:"F8", occupied:true,pieceColor:"B",pieceType:"B",startMark:false});
+	tileElement.push({tileColor:"W",tileName:"D8", occupied:true,pieceColor:"B",pieceType:"K",startMark:false});
+	tileElement.push({tileColor:"B",tileName:"E8", occupied:true,pieceColor:"B",pieceType:"Q",startMark:false});
+	tileElement.push({tileColor:"W",tileName:"C8", occupied:true,pieceColor:"B",pieceType:"B",startMark:false});
+	tileElement.push({tileColor:"B",tileName:"B8", occupied:true,pieceColor:"B",pieceType:"N",startMark:false});
+	tileElement.push({tileColor:"W",tileName:"A8", occupied:true,pieceColor:"B",pieceType:"R",startMark:false});
+}
+
+function colorChoice(){
+uplayer="";
+var e = document.getElementById("piececolor");
+sel = e.options[e.selectedIndex].text;
+if (sel=="random"){random();}
+else if(sel=="white") {uplayer="white";}
+else if(sel=="black") {uplayer="black";}
+}
+
+function random(){
+holder = Math.random() < 0.5;
+if (holder==true){uplayer="white";} else if (holder==false){uplayer="black";}
+}
+
+function chess(){
+    ctm.fillStyle = "#383428";
+	ctm.fillRect(0, 0, 1500, 850);
+	colorChoice();
+	initTiles();
+	board();
+	start_listener();
+}
+
+function board(){
+	posX=52;
+	posY=2;
+	posX=52;
+	posY=2;
+	tileW=100;
+	tileH=100;
+	pawn="\u{265F}";
+	rook="\u{265C}";
+	knight="\u{265E}";
+	bishop="\u{265D}";
+	king="\u{265A}";
+	queen="\u{265B}";
+	var i=0;
+	var j=0;
+	if(uplayer=="black"){
+		while (i<64) {
+			pieceSetup(i);
+			i++;
+		}
+	}else if (uplayer=="white"){
+		i=63;
+		while (i>=0) {
+			pieceSetup(i);
+			i--;
+		}
+	}
+}
+
+function pieceSetup(i){
+	setTileColor(i);
+	savePiecePos(i);
+	drawPiece(i);
+	boardPos(i);
+	posX=posX+100; 
+	if(posX>=800){posX=52;posY=posY+100;};
+}
+
+function boardPos(i){
+	ctm.fillStyle = "cyan";
+	ctm.font = "bold 18px serif";
+	ctm.fillText(tileElement[i].tileName, tileElement[i].textX, tileElement[i].textY);
+}
+
+function drawPiece(t){
+	if (tileElement[t].pieceColor=="W") {pColor="#89D1FE";}
+	else if (tileElement[t].pieceColor=="B") {pColor="#700000";}
+	if (tileElement[t].pieceType=="P") {piece=pawn;}
+	else if (tileElement[t].pieceType=="R") {piece=rook;}
+	else if (tileElement[t].pieceType=="N") {piece=knight;}
+	else if (tileElement[t].pieceType=="B") {piece=bishop;}
+	else if (tileElement[t].pieceType=="K") {piece=king;}
+	else if (tileElement[t].pieceType=="Q") {piece=queen;}
+	else if (tileElement[t].pieceType=="") {piece="none";}
+	ctm.font = "96px courier bold";
+	ctm.fillStyle = pColor;
+	if (piece!="none"){ctm.fillText(piece, tileElement[t].pieceX, tileElement[t].pieceY+90);}
+}
+
+function setTileColor(i){
+	squareColor=tileElement[i].tileColor;
+	if (squareColor=="W"){setColor="#fae0c8";} else if (squareColor=="B"){setColor="#6F5D5D";}
+	ctm.fillStyle = setColor;
+}
+
+function savePiecePos(i){
+	ctm.fillRect(posX,posY,tileW,tileH);
+	tileElement[i].pieceX =posX;
+	tileElement[i].pieceY =posY;
+	tileElement[i].X =posX;
+	tileElement[i].Y =posY;
+	tileElement[i].W =tileW;
+	tileElement[i].H =tileH;
+	tileElement[i].textX=posX;
+	tileElement[i].textY=posY+90;
+}
+
+
+function stop_listeners() {
+    c.removeEventListener('mouseup', start_listeners);
+    c.removeEventListener('mousedown', start_listeners);
+    c.removeEventListener('getPosition', start_listeners);
+}
+
+// Start listener
+function start_listener() {
+    mousePos = [0, 0];
+    mouseDown = [0, 0];
+    mouseUp = [0, 0];
+    c.addEventListener("mouseup", function(evt) {
+        mouseUp = getPosition(ctm, evt);
+        message = 'Mouse up: ' + mouseUp.x + ',' + mouseUp.y;
+		mouseOp();
+        mouseup_logic();
+    }, false);
+    c.addEventListener("mousedown", function(evt) {
+        mouseDown = getPosition(ctm, evt);
+        message = 'Mouse down: ' + mouseDown.x + ',' + mouseDown.y;
+		mouseOp();
+        mousedown_logic();
+		
+    }, false);
+    c.addEventListener('mousemove', function(evt) {
+       mousePos = getPosition(ctm, evt);
+       message = 'Mouse position: ' + mousePos.x + ',' + mousePos.y;
+	   mouseOp();
+	   arrayScan();
+    }, false);
+}
+
+function pieceMarkUnmark(){
+ 	for (var t=0;t<64;t++){
+		if (mousePos.x >= tileElement[t].X && mousePos.x <= (tileElement[t].X + tileElement[t].W) && mousePos.y >= tileElement[t].Y && mousePos.y <= (tileElement[t].Y + tileElement[t].H)) {
+			if (tileElement[t].startMark==false){
+				ctm.fillStyle = "#00A800";
+				ctm.fillRect(tileElement[t].X,tileElement[t].Y,tileElement[t].W,tileElement[t].H);
+				tileElement[t].startMark=true;
+				drawPiece(t);
+				boardPos(t);
+			} 
+		else if (tileElement[t].startMark==true){
+			    setTileColor(t);
+			    ctm.fillStyle = setColor;
+				ctm.fillRect(tileElement[t].X,tileElement[t].Y,tileElement[t].W,tileElement[t].H);
+				tileElement[t].startMark=false;
+				drawPiece(t);
+				boardPos(t);
+			}
+		} 
+	}	
+}
+
+function arrayScan(){
+for (var t=0;t<64;t++){
+	if (tileElement[t].startMark==false){
+		if (mousePos.x >= tileElement[t].X && mousePos.x <= (tileElement[t].X + tileElement[t].W) && mousePos.y >= tileElement[t].Y && mousePos.y <= (tileElement[t].Y + tileElement[t].H)) {
+			ctm.fillStyle = "yellow";
+			ctm.fillRect(tileElement[t].X,tileElement[t].Y,tileElement[t].W,tileElement[t].H);
+			drawPiece(t);
+			boardPos(t);
+		}
+   	else {
+			squareColor=tileElement[t].tileColor;
+			if (squareColor=="W"){setColor="#fae0c8";} else if (squareColor=="B"){setColor="#6F5D5D";}
+			ctm.fillStyle = setColor;
+			ctm.fillRect(tileElement[t].X,tileElement[t].Y,tileElement[t].W,tileElement[t].H);
+		    drawPiece(t);
+			boardPos(t);
+		}
+		
+	}
+}
+}
+
+function mouseOp(){
+	ctm.fillStyle = "orange";
+	ctm.fillRect(850,3,220,25);
+	ctm.fillStyle = "black";
+	ctm.fillText(message, 860, 20);
+}
+
+
+
+// Get X, Y cordinates mouse position
+function getPosition(ctm, evt) {
+    var rect = c.getBoundingClientRect();
+    return {
+        x: evt.clientX - rect.left,
+        y: evt.clientY - rect.top
+    };
+	
+}
+
+// How program behave on mouse click, drag, drop
+function mousedown_logic() {
+    pieceMarkUnmark();
+}
+
+function mouseup_logic() {
+
+}
+
+
+function moves(){
+let Wdiagonal=[];
+let Bdiagonal=[];
+let horisontal=[];
+let vertical=[];
+}
+
+chess();
+</script>
