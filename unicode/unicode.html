@@ -1,0 +1,77 @@
+<HTML>
+
+<BODY BGCOLOR=YELLOW>
+<B><font size=5>UNICODE SYMBOLS UTF-16 |</font>
+ MIN<input type="number" id="xmin" name="xmin" value=0 size="10" onChange="setrange()">
+  | MAX<input type="number" id="xmax" name="xmax"  value=719 size="10" disabled></B> 
+ <input type="submit" value="Page+" onclick="plus()"> |  
+ <input type="submit" value="Page-" onclick="minus()">
+ <br>
+ </BODY>
+</HTML>
+<canvas id="myCanvas" width="1900" height="890"></canvas>
+<script>
+var c = document.getElementById("myCanvas");
+var ctm = c.getContext("2d");
+
+
+function plus(){
+	document.getElementById('xmin').value=min+720;
+	document.getElementById('xmax').value=max+720;
+	unicode();
+}
+
+function minus(){
+	if(min>0){
+		document.getElementById('xmin').value=min-720;
+		document.getElementById('xmax').value=max-720;
+		unicode();
+	}
+}
+
+function setrange(){
+min=document.getElementById('xmin').value;
+min=parseInt(min);
+max=min+720;
+document.getElementById('xmax').value=max;
+unicode();
+}
+
+let uniarr = [];
+
+function unicode(){
+    ctm.fillStyle = "#000000";
+	ctm.fillRect(0, 0, 1900, 880);
+	var k=20;
+	var l=30;
+	i=0;
+	min=document.getElementById('xmin').value;
+	max=document.getElementById('xmax').value;
+	min=parseInt(min);
+	max=parseInt(max);
+	for(i=min;i<=max; i++){ 
+      	uniarr.push(String.fromCodePoint(i));
+		//uniarr.push(String.fromCharCode(i));
+	}
+	
+	var j=min;
+	while (j<=max){
+		ctm.font = "32px courier bold";
+		ctm.fillStyle = 'white';
+		ctm.fillText(uniarr[j],k, l );
+		//ctm.fillText("\u{1D122}", k, l);
+		ctm.font = "12px courier bold";
+		ctm.fillStyle = 'white';
+		ctm.fillText(j,k, l+20 );
+		k=k+40;
+		j++;
+		if(k>1800){k=20;l=l+54;};
+	}
+}
+
+unicode();
+</script>
+
+
+
+
