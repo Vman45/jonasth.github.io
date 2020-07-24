@@ -1,0 +1,249 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Cache-Control" content="no-store" />
+    <meta http-Equiv="content-type" content="text/html; charset=UTF-8">
+    <link REL="StyleSheet" TYPE="text/css" HREF="drop.css">
+    <script type="text/javascript" src="1INIT.js"></script>
+    <script type="text/javascript" src="DEMO.js"></script>
+    <script type="text/javascript" src="2MAIN.js"></script>
+    <script type="text/javascript" src="3AUTOGENERATE.js"></script>
+    <script type="text/javascript" src="4SORTGRAPH.js"></script>
+    <script type="text/javascript" src="5CREATEGRAPHIC.js"></script>
+    <script type="text/javascript" src="6PAINTCANVAS.js"></script>
+    <script type="text/javascript" src="7EDITGRAPH.js"></script>
+    <script type="text/javascript" src="8MESSAGES.js"></script>
+    <script type="text/javascript" src="ARRAYS.js"></script>
+    <script type="text/javascript" src="X1LISTENER.js"></script>
+    <script type="text/javascript" src="X2UI.js"></script>
+    <script type="text/javascript" src="X3LOADSAVE.js"></script>
+    <script type="text/javascript" src="CSS.js"></script>
+    <script type="text/javascript" src="_2DTRANSFORMS.js"></script>
+</head>
+
+<body bgcolor="lightgray" onload="scriptload();" link="white" vlink="gold" alink="black">
+<div id="container" style="width:11000px">
+<div id="header" style="background-color:yellow;clear:both;text-align:left;"> <button onclick="myFunction()">Hide menu</button>
+<font color="black" size="0"><b> Copyright &copy Jonas Thörnvall jonas.thornvall@hotmail.com</b></font>
+<font size=1>
+Clear Canvas <input type="checkbox" id="clearcanvas" name="clearcanvas" onclick="clear_canvas();" />
+Inv background <input type="checkbox" id="invback" name="invback" onclick="clear_canvas();" checked="checked"/>
+Draw grid<input type="checkbox" id="drawgrid" name="drawgrid" onclick="UI_grid();" checked="checked"/>
+Bezierhandle<input type="checkbox" checked id="bhandles" name="bhandles" onclick="UI_bhandleselect();"/>
+Nodehandle<input type="checkbox" checked id="nhandles" name="nhandles" onclick="UI_handleselect();"/>
+GraphData Out<input type="checkbox" id="textdata" name="textdata" onclick=" UI_select_textdata();"/>
+Graphics Out<input type="checkbox" checked id="graphic" name="graphic" onclick="UI_select_animation();"/>
+</div>
+
+<div id="menu" style="background-color:lightgray;height:1080px;width:94px;float:left;">
+<table border="2" bgcolor="lightgray" width=92 align="center">
+<tr><td align="center">
+<font size=3><b>DEEP THOUGHT</b></font>
+</td></tr></table>
+<table  bgcolor="lightgray" width="250" align="left"><tr><td>
+<div class="dropdown">
+<table border="2" bgcolor="white" width=80><tr><td>
+<button onclick="GD()" class="dropbtn"><B> GRAPHDATA</button>
+</td></tr></table>
+<div id="DATA" class="dropdown-content">
+<table border="2" bgcolor="yellow" width=92 align=center>
+<th bgcolor="white" align="center">GRAPH DATA</th>
+<tr><td>
+  <form name="graph"  return false;">
+    <textarea id="data" name="data" rows="21" cols="31"></textarea>
+  </form>
+  </td></tr></table>
+</div>
+</div>
+</td></tr></table>
+
+<table  bgcolor="lightgray" width="92" align="left"><tr><td>
+<div class="dropdown">
+  <table border="2" bgcolor="white" width="80"><tr><td>
+<button onclick="AG()" class="dropbtn"><b>AUTOGRAPH</button>
+</td></tr></table>
+ <div id="AUTO" class="dropdown-content">
+<table border="2" bgcolor=deepskyblue width=250 align="center">
+<th align="center" bgcolor="white" colspan="4">AUTO GENERATE GRAPH</th>
+<tr><td>
+<form name="xminus" onsubmit="minusL(); return false;">
+<input name="x_minus" value="Link -" type="submit">
+</form></td>
+<td>
+<form name="NoLinks" onsubmit="AUTOGRAPH(); return false;">
+</td><td align="center"><input name="linkval" value="2" size="4" type="text">
+</form></td>
+<td><form name="xplus" onsubmit="plusL(); return false;">
+<input name="x_plus" value="Link +" type="submit">
+</form></td></tr></table>
+<table border="2"  bgcolor=deepskyblue width=250 align="center"><tr><td>
+<form name="nminus" onsubmit="minusN(); return false;">
+<input name="n_minus" value="Node-" type="submit">
+</form></td>
+<td><form name="NoNodes" onsubmit="AUTOGRAPH(); return false;">
+<input name="nodeval" value="24" size="4" type="text">
+</form></td><td>
+<form name="nplus" onsubmit="plusN(); return false;">
+<input name="n_plus" value="Node+" type="submit">
+</form></td></tr></table>
+
+<table border="2"  bgcolor=deepskyblue width=250 align="center"><tr><td>
+Connect:<input type="checkbox" name="connected" id="connected">
+Regular:
+<input type="checkbox" name="regular" id="regular" checked>
+Sort:<input type="checkbox" name="sort" id="sort">
+</td></tr>
+</table>
+
+<table border="2"  bgcolor=deepskyblue width=250 align="center"><tr><td>
+Subset:</td><td >
+<select id="mysubset" onchange="AUTOGRAPH();">
+     <option value="All">All</option>
+     <option value="L*d+1=N">L*d+1=N</option>
+</select>
+</td></tr></table>
+
+<table border="2"  bgcolor=deepskyblue width=250 align="center"><tr><td align="left">
+<form name="nminus" onsubmit="minusM(); return false;">
+<input name="n_minus" value="Deep-" type="submit">
+</form></td>
+<td align="center">
+<form name="lmultiple">
+<input name="lmult" value="" size="4" type="text">
+</form></td>
+<td><form name="nplus" onsubmit="plusM(); return false;">
+<input name="n_plus" value="Deep+" type="submit">
+</form></td></tr></table>
+
+<table border="2"  bgcolor=deepskyblue width=250 align="center"><tr><td>
+<select id="time" onchange="AUTOGRAPH();">
+ <option value="0.2">0.2 sec</option>
+ <option value="2">2 sec</option>
+ <option value="5">5 sec</option>
+ <option value="15">15 sec</option>
+ <option value="45">45 sec</option>
+ <option value="900">15 min</option>
+ <option value="3600">1 hour</option>
+</select>
+<input type="submit" value="Search!" id="search" name="search" onclick="AUTOGRAPH();"/>
+</td></tr></table>
+</div>
+</div>
+</td></tr></table>
+
+<table  bgcolor="lightgray" width="92" align="left"><tr><td>
+<div class="dropdown">
+<table border="2" bgcolor="white" width=80 ><tr><td>
+<button onclick="EG()" class="dropbtn"><b>EDITGRAPH</button>
+</td></tr></table>
+ <div id="EDIT" class="dropdown-content">
+<table border="2" bgcolor="lightblue" width=250 align="center">
+<th bgcolor="white" align="center">EDIT GRAPH TOOL</th>
+<form action="">
+<tr bgcolor="white"><td align="left"><font color=black>T<input type="radio" name="tools" id="beziercurve" onclick="bezier_curve();">DRAW BEZIERCURVE *MARKED NODES*</td></tr>
+
+<tr bgcolor="red"><td align="left"><font color=white>C<input type="radio" name="tools" id="cnode" onclick="">CREATE A NODE</td></tr>
+<tr bgcolor="red"><td align="left"><font color=white>B<input type="radio" name="tools" id="rnode" onclick="">REMOVE A NODE</td></tr>
+<tr bgcolor="red"><td align="left"><font color=white>E<input type="radio" name="tools" id="rmnode" onclick="removeMarkedNodes();">ERASE MARKED NODES </td></tr>
+<tr  bgcolor="yellow"><td align="left">J<input type="radio" name="tools" id="movenode" checked="checked" onclick="">MOVE NODE OR BEZIER </td></tr>
+<tr bgcolor="yellow"><td align="left">G<input type="radio" name="tools" id="mnode" onclick="">MARK / UNMARK A NODE</td></tr>
+<tr bgcolor="yellow"><td align="left">F<input type="radio" name="tools" id="relnodes" onclick="markUnmarkAll();">MARK / UNMARK ALL NODES</td></tr>
+<tr bgcolor="yellow"><td align="left">A<input type="radio" name="tools" id="area" onclick="">AREA SELECT TOOL *</td></tr>
+<tr bgcolor="limegreen"><td align="left"><font color=white>H<input type="radio" name="tools" id="cmlink" onclick="createMarkedLinks();">CREATE MARKED LINKS</td></tr>
+<tr bgcolor="limegreen"><td align="left"><font color=white>I<input type="radio" name="tools" id="rmlink" onclick="removeMarkedLinks();">REMOVE MARKED LINKS</td></tr>
+<tr bgcolor="white"><td align="left"><font color=black>D<input type="radio" name="tools" id="drawtool" onclick="">DRAW "CTRL RELEASE"</td></tr>
+<tr bgcolor="white"><td align="left"><font color=black>R<input type="radio" name="tools" id="reshaper" onclick="reShape();">RESHAPE / MOVE MARKED</td></tr>
+<tr  bgcolor="white"><td align="left">Z<input type="radio" name="tools" id="movebezgroup" onclick="">RESHAPE MOVEBEZIER GROUP *TOCOME*</td></tr>
+</form>
+</table>
+</div>
+</div>
+</td></tr></table>
+
+ <table  bgcolor="lightgray" width="92" align="left"><tr><td>
+<div class="dropdown">
+ <table border="2" bgcolor="white" width=80><tr><td>
+<button onclick="PT()" class="dropbtn"><b>PAINT OUT</button>
+</td></tr></table>
+  <div id="PAINTOUT" class="dropdown-content">
+    <table border="2" bgcolor="emerald" width=250 align="center">
+<th bgcolor="white" align="center"><b>PAINT OUT</th>
+<tr><td align="center">
+<Font color="white">Pattern:
+<select id="mySelect" onchange="selectPattern()">
+  <option value="circle">circle</option>
+  <option value="phylotaxi">phylotaxi</option>
+  <option value="elipse">elipse</option>
+  <option value="swirl">swirl</option>
+  <option value="spiral">spiral</option>
+  <option value="random">random</option>
+</select>
+<br>
+</td></tr>
+<tr><td align="center"><Font color="white">
+
+</td></tr></table>
+</div>
+</div>
+</td></tr></table>
+ <table  bgcolor="lightgray" width="92" align="left"><tr><td>
+<div class="dropdown">
+ <table  bgcolor="white" border="2" width="80"><tr><td>
+<button onclick="LS()" class="dropbtn" size=100><b>LOAD SAVE</button>
+</tr></tr></table>
+  <div id="LOADSAVE" class="dropdown-content">
+ <table  bgcolor="white" border="2" width="250" align="center">
+<th align="center" bgcolor="white">LOAD / SAVE </th>
+</table>
+<table bgcolor="beige" border="2" width="250"><tr><td>
+<input type="file" id="fileToLoad">
+</td></tr></table>
+<table border="2" bgcolor="beige" width=250 align="center">
+<tr><td bgcolor="orange" align="left">
+   <button onclick="loadGraph()">Load Graph</button>
+</td></tr>
+        <input type="text" hidden id="inputTextToSave">
+<tr><td bgcolor="orange" align="left">
+<form name="savegraph" return false;">
+<button id="saveit">SaveGraph</button>
+<input name="filename" value="default.txt" size="9" type="text">
+</form></td></tr>
+<tr><td bgcolor="orange" align="left">
+<form name="snap" return false;">
+<button id="pushit">Snapshot</button>
+<input name="filename" value="default.jpg" size="11" type="text">
+</form></td></tr></table>
+</div>
+</div>
+</td></tr></table>
+
+<table  bgcolor="lightgray" width="92" align="left"><tr><td>
+<div class="dropdown">
+<table border="2" bgcolor="white" width=80 ><tr><td>
+<button onclick="DG()" class="dropbtn"><b>**DEBUG**</button>
+</td></tr></table>
+ <div id="DEBUG" class="dropdown-content">
+   <table border="2" bgcolor="lightgrey" width=250><tr><td>
+   Debug data:<br>
+   <form name="debug" return false;">
+     <textarea id="data" name="data" rows="10" cols="30"></textarea>
+   </form>
+   </td></tr></table>
+   <table border="2" bgcolor="lightgrey" width=250><tr><td>
+   Debug field 2:<br>
+   <form name="debugtwo" return false;">
+     <textarea id="datatwo" name="datatwo" rows="10" cols="30"></textarea>
+   </form>
+   </td></tr></table>
+
+ </div>
+ </div>
+ </td></tr></table>
+</div>
+
+<div id="content" style="background-color:white;width:1130;height:1080px;float:left;">
+<canvas id="myCanvas" width="10000" height="10000">Your browser does not support the HTML5 canvas tag.</canvas>
+</div>
+
+</body>
+</html>
