@@ -230,7 +230,7 @@ function start_listener() {
        mousePos = getPosition(ctm, evt);
        message = 'Mouse position: ' + mousePos.x + ',' + mousePos.y;
 	   mouseOp();
-	   //arrayScan();
+	   arrayScan();
     }, false);
 }
 
@@ -260,14 +260,20 @@ function arrayScan(){
 for (var t=0;t<64;t++){
 	if (tileElement[t].startMark==false){
 		if (mousePos.x >= tileElement[t].X && mousePos.x <= (tileElement[t].X + tileElement[t].W) && mousePos.y >= tileElement[t].Y && mousePos.y <= (tileElement[t].Y + tileElement[t].H)) {
-			ctm.fillStyle = "black";
-			ctm.strokeRect(tileElement[t].X,tileElement[t].Y,tileElement[t].W,tileElement[t].H);
-		} else {
+			ctm.fillStyle = "yellow";
+			ctm.fillRect(tileElement[t].X,tileElement[t].Y,tileElement[t].W,tileElement[t].H);
+			drawPiece(t);
+			boardPos(t);
+		}
+   	else {
 			squareColor=tileElement[t].tileColor;
 			if (squareColor=="W"){setColor="#fae0c8";} else if (squareColor=="B"){setColor="#6F5D5D";}
-			ctm.strokeStyle = setColor;
-			ctm.strokeRect(tileElement[t].X,tileElement[t].Y,tileElement[t].W,tileElement[t].H);
+			ctm.fillStyle = setColor;
+			ctm.fillRect(tileElement[t].X,tileElement[t].Y,tileElement[t].W,tileElement[t].H);
+		    drawPiece(t);
+			boardPos(t);
 		}
+		
 	}
 }
 }
