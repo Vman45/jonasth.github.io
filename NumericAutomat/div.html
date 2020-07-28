@@ -1,0 +1,1012 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-Equiv="Cache-Control" Content="no-cache">
+    <meta http-Equiv="Pragma" Content="no-cache">
+    <meta http-Equiv="Expires" Content="0">
+</head>
+
+<body bgcolor="lightgray" onload="first_call();" link="white" vlink="gold" alink="black">
+
+<div id="container" style="width:10000px">
+
+<div id="header" style="background-color:royalblue;">
+
+
+</div>
+
+<div id="menu" style="background-color:lightgray;height:10000px;width:190px;float:left;">
+
+<table border="2" bgcolor="royalblue" width=180><tr><td colspan="2" align="middle">
+<form name=Ldoit onSubmit="offset(); return false;">
+<input type=submit value="OFFSET Col Row">
+</td></tr><tr><td align="middle">
+X-<input type="text" name="xledf" value="1" size="2"></td><td align="middle">
+Y-<input type="text" name="yledf" value="1" size="2">
+</form>
+</td></tr>
+<tr><td align="middle">
+<form name=xplus onSubmit="plusX(); return false;">
+<input type=submit name="x_plus" value="X+">
+</form>
+</td><td align="middle">
+<form name=xminus onSubmit="minusX(); return false;">
+<input type=submit name="x_minus" value="X-">
+</form>
+</td></tr>
+<tr><td align="middle">
+<form name=yplus onSubmit="plusY(); return false;">
+<input type=submit name="y_plus" value="Y+">
+</form>
+</td><td align="middle">
+<form name=yminus onSubmit="minusY(); return false;">
+<input type=submit name="y_minus" value="Y-">
+</form>
+</td></tr></table>
+
+<table border="2" bgcolor="beige" width=180><tr>
+<td align=middle bgcolor="yellow">+<br><input type="checkbox" id="pos" name="pos" onchange="recheck();" ></td>
+<td align=middle bgcolor="gray">-<br><input type="checkbox" id="neg" name="neg" onchange="recheck();" ></td>
+<td align=middle bgcolor="pink">O <br><input type="checkbox" name="o" id="o"  onchange="recheck();"></td>
+<td align=middle bgcolor="lightblue">E <br><input type="checkbox" name="e" id="e" onchange="recheck();" checked></td>
+</tr></table>
+
+<table border="2" bgcolor="beige" width=180><tr>
+<td bgcolor="green" align="middle">
+<form name=Edoit onSubmit="initanime(); return false;">
+<input type=submit name="init_anime" value="Anim"></form></td>
+<td bgcolor="red" align="middle">
+<form name=Fdoit onSubmit="stopanime(); return false;">
+<input type=submit name="stop_anime" value="haltA">
+</form>
+</td></tr></table>
+
+<table border="2" bgcolor="royalblue" width=180>
+<tr><td colspan="2"><font color="gold"><b>INTEGER EXP. v0.995</b></font></td></tr>
+<tr><td align="middle"><form name=Xdoit onSubmit="reinitiate(); return false;">
+<input type=submit value=" MIN "></td><td align="middle"><input type="text" name="start_At" value="1" size="10">
+</form>
+</td>
+<tr><td align="middle">
+<form name=Jdoit onSubmit="reinitiate(); return false;">
+<b><input type=submit value="MAX"></b>
+</td><td align="middle"><input type="text" name="rangeN" value="100000" size="10">
+</form>
+</td></tr>
+<tr><td align="middle">
+<form name=Adoit onSubmit="next(); return false;">
+<input type=submit value="Forw">
+</form> </td><td align="middle">
+<form name=Bdoit onSubmit="prev(); return false;">
+<input type=submit value="Backw">
+</form></td>
+</tr>
+</table>
+
+<table border="1" bgcolor="gold" width=180><tr>
+<td align="middle"><form name=Cdoit onSubmit="zoomin(); return false;">
+<input type=submit name="zoom_in" value="Zoom+"></form></td>
+<td align="middle"><form name=Ddoit onSubmit="zoomout(); return false;">
+<input type=submit name="zoom_out" value="Zoom-">
+</form></td>
+</tr>
+<tr>
+<td colspan="2" align="middle"><form name=Zdoit onSubmit="square_size(); return false;">
+<input type=submit value="ZoomVal"> 
+<input type="text" name="sqsize" value="2" size="3"><br>
+</form>
+</td></tr>
+</table>
+
+
+<table border="2" bgcolor="beige" width=180>
+<tr>
+<td colspan="4" align=left bgcolor="blue">
+<font color="white">
+P<input id="p" type="checkbox" name="p" onchange="recheck();"></td><td bgcolor="gray">
+&Sigma;<input id="sigmap" type="checkbox" name="sigmap" onchange="recheck();" >
+scope<input type="checkbox" name="pscope" id="pscope" onchange="recheck();" ></font></td>
+</tr>
+
+<tr>
+<td colspan="4" align=left bgcolor="red"><font color="white">
+SQ<input type="checkbox" name="sq" id="sq" onchange="recheck();"></td><td bgcolor="gray">
+&Sigma;<input id="sigmasq" type="checkbox" name="sigmasq" onchange="recheck();" >
+scope<input type="checkbox" name="sscope" id="sscope" onchange="recheck();"></td>
+</tr>
+
+<tr><td colspan="4" align=left bgcolor="darkorchid"><font color="white">
+C</font><input type="checkbox" name="c" id="c" onchange="recheck();" ></td><td bgcolor="gray">
+&Sigma;</font><input id="sigmapmult" type="checkbox" name="sigmapmult" onchange="recheck();" >
+</td>
+</tr>
+
+<tr>
+<td colspan="4" align=left bgcolor="green">
+<font color="white">F</font><input type="checkbox" name="f" id="f" onchange="recheck();" ></font></td><td bgcolor="gray">
+</td>
+</tr>
+
+<tr>
+<td colspan="4" align=left bgcolor="steelblue">
+x<sup> y</sup><input type="checkbox" name="ps" id="ps" onchange="recheck();" ></td><td bgcolor="gray">
+
+</td>
+</tr>
+
+<tr>
+<td colspan="4" align=left bgcolor="brown"><font color="white">
+ax<sup>j</sup><input type="checkbox" name="pone" id="pone" onchange="recheck();" checked></td><td bgcolor="gray">
+
+</td>
+</tr>
+
+</table>
+<form name=fold onSubmit="recheck(); return false;">
+<table border="2" bgcolor="orange" width=180>
+<tr><td><b>G<input type="checkbox" name="z" id="z" onchange="recheck();">
+&Sigma;<input id="sigmags" type="checkbox" name="sigmags" onchange="recheck();"></b></td><td><input type=submit value="FOLD"></td></tr>
+<tr><td>SVal <input type="text" name="elements" value="2" size="1"></td><td>Part <input type="text" name="partitions" value="2" size="1"></td></tr>
+<tr><td>Min<input type="text" name="min" value="" size="6" readonly></td><td>F<input type="text" name="folds" value="" size="2" readonly></td></tr>
+<tr><td>Max<input type="text" name="max" value="" size="5" readonly></td><td>F<input type="text" name="foldstwo" value="" size="2" readonly></td></tr>
+</form>
+<tr><td><form name=incv onSubmit="ival(); return false;"><input type=submit name="incval" value="Setsize+"></form></td>
+<td><form name=decv onSubmit="dval(); return false;"><input type=submit name="decval" value="Setsize-"></form></td></tr>
+<tr><td><form name=incp onSubmit="ipart(); return false;"><input type=submit name="incpart" value="Parts+"></form></td>
+<td><form name=decp onSubmit="dpart(); return false;"><input type=submit name="decpart" value="Parts-"></form></td></tr>
+<tr><td></td><td><form name=search onSubmit="searchf(); return false;"><input type=submit value="Search"></form></td></tr>
+</table>
+
+
+</div>
+
+
+<div id="content" style="background-color:lightgray;height:10000px;width:10000;float:left;">
+<canvas id="myCanvas" width="9800" height="9800">Your browser does not support the HTML5 canvas tag.</canvas>
+
+<script type="text/javascript">
+
+// GLOBAL VARIABLES
+var fcounter = 500;
+
+var memb = 1;
+var square = 0;
+var size = 0;
+var run = 0;
+var back = 0;
+var down = 0;
+var adder = 0;
+var refresh = 5;
+var timer = 5;
+var width = 0;
+var height = 0;
+var arr = new Array();
+var start = 0;
+var range = 0;
+var scope = 0;
+var hfuncoff = 0;
+var hcountoff = 0;
+
+
+
+// DRAW FUNCTIONS
+
+function redraw()
+{
+   clear();
+   init();
+   paint_logic();
+}
+
+function clear()
+{
+   ctx.clearRect(0, 0, 1900, 1900);
+}
+
+function init()
+{
+
+   down = yyled;
+   back = xxled;
+   v_inner = 0;
+   h_inner = 0;
+   h_outer = 0;
+   v_outer = 0;
+   vcoffset = 0;
+   hcoffset = 0;
+
+   if(adder != 0)numberStart = numberStart + adder;
+   number = numberStart;
+   h_outer = asize * (back);
+   if (xxled < 0)
+   {
+      vcoffset = (xxled * - asize);
+   }
+   if (yyled < - 0)
+   {
+      hcoffset = (yyled * - asize);
+   }
+}
+
+function paint_logic()
+{
+   while(number < numbRange)
+
+   {
+      document.Xdoit.start_At.value = numberStart;
+      vertical = 0;
+      v_outer = 0;
+      v_inner = v_outer;
+      h_inner = h_outer;
+      square = 0;
+      negsquare = 0;
+
+      while(vertical < down)
+      {
+         if (number == 0) number ++ ;
+
+         paint_out();
+         v_inner = v_inner + asize;
+         vertical ++ ;
+         number ++ ;
+      }
+      down ++ ;
+      horisontal = 0;
+      h_inner = h_outer;
+
+      while(horisontal < back)
+      {
+         if (number == 0) number ++ ;
+         paint_out();
+         h_inner = h_inner - asize;
+         horisontal ++ ;
+         number ++ ;
+      }
+      back ++ ;
+      h_outer = h_outer + asize;
+   }
+   number ++ ;
+}
+
+function paint_out()
+{
+
+
+   ctx.fillStyle = arr[number].rcolor;
+   ctx.fillRect(h_inner + vcoffset, v_inner + hcoffset, width, height);
+   // Write out numbers
+   ctx.fillStyle = arr[number].fcolor;
+   if (divisor < 4)
+   {
+      ctx.fillText(arr[number].count, h_inner + 3 / divisor + vcoffset, v_inner + 15 / divisor + hcoffset);
+      ctx.fillText(arr[number].func, h_inner + 3 / divisor + vcoffset, v_inner + hfuncoff + hcoffset);
+   }
+
+
+
+}
+
+// ANIMATION FUNCTIONS
+
+function initanime()
+{
+   // ONLY CALLED FROM FORM
+   adder = - 1;
+   refresh = setInterval(redraw, 1);
+}
+
+
+function stopanime()
+{
+   // ONLY CALLED FROM FORM
+   adder = 0;
+   clearInterval(refresh);
+}
+
+
+// PROGRAM LOGIC
+
+function first_call()
+{
+   // ONLY CALLED AT < BODY = ONLOAD >
+
+   canvas = document.getElementById("myCanvas");
+   ctx = canvas.getContext("2d");
+   reinitiate();
+}
+
+
+function arraysize()
+{
+
+   for ( i = - scope; i <= scope; i ++ )
+   {
+      arr[i] =
+      {
+         count : i,
+         func : '',
+         fcolor : 'black',
+         rheight : 100,
+         rwidth : 100,
+         rcolor : 'white',
+         prime : true,
+         formula : 0,
+         sigma : 0,
+      }
+   }
+}
+
+
+function isPrime()
+{
+   n = scope;
+   // Eratosthenes algorithm to find all primes under n
+   upperLimit = Math.sqrt(n);
+
+   // Make an array from 2 to (n - 1)
+   arr[0].prime = false;
+   arr[1].prime = false;
+
+   // Remove multiples of primes starting from 2, 3, 5, ...
+   i = 1;
+   while (i <= upperLimit)
+   {
+      if (arr[i].prime)
+      {
+         for (var j = i * i; j < n; j += i)
+         {
+            arr[j].prime = false;
+            arr[ - j].prime = false;
+
+         }
+      }
+      i ++ ;
+   }
+
+}
+
+
+function reinitiate()
+{
+
+   // Fetch values from fields
+   numbRange = document.Jdoit.rangeN.value * 1;
+   numberStart = document.Xdoit.start_At.value * 1;
+   divisorGlobal = document.Zdoit.sqsize.value * 1;
+   xxled = document.Ldoit.xledf.value * 1;
+   yyled = document.Ldoit.yledf.value * 1;
+
+   // Buffer for animation
+   range = numbRange + 10000;
+   start = numberStart - 10000;
+   temp = Math.abs(start);
+   if (range <= temp)
+   {
+      scope = temp
+   }
+   else
+   {
+      scope = range;
+   }
+
+   // Setsize
+   arraysize();
+   isPrime();
+   // Set size of paintout
+   size_font_square();
+   // Check what to paint
+   recheck();
+}
+
+
+function size_font_square()
+{
+
+   divisorGlobal = divisorGlobal + size;
+   // Set size range 1 -> 100
+   if (divisorGlobal == 0)
+   {
+      divisorGlobal = 1;
+   }
+   else if (divisorGlobal > 100)
+   {
+      divisorGlobal = divisorGlobal - 1;
+   }
+   // Write out Zoom factor to form
+   document.Zdoit.sqsize.value = divisorGlobal;
+   // Global magnitude objects
+   divisor = divisorGlobal;
+   // Set fontsize
+   fstor = 15 / divisor;
+   ctx.font = "" + fstor + "px Arial";
+   // Set distance squares
+   asize = 67 / divisor;
+   // Set square size
+   storlek = 54;
+   height = storlek / divisor;
+   width = storlek / divisor;
+   // horisontal offset function
+   hfuncoff = 30 / divisor;
+   // horisontal offset count
+}
+
+
+// CHECK INPUT FIELD
+
+function recheck()
+{
+   // adder = 0;
+   notchecked();
+   if (document.getElementById('pos').checked == true)
+   {
+      pos_checked();
+
+   }
+   if (document.getElementById('neg').checked == true)
+   {
+      neg_checked();
+
+   }
+   if (document.getElementById('o').checked == true)
+   {
+      odd_checked();
+
+   }
+   if (document.getElementById('e').checked == true)
+   {
+      even_checked();
+
+   }
+   if (document.getElementById('z').checked == true)
+   {
+      fold();
+
+   }
+   if (document.getElementById('pone').checked == true)
+   {
+      axj();
+
+   }
+
+   if (document.getElementById('ps').checked == true)
+   {
+      powed();
+
+   }
+
+   if (document.getElementById('sq').checked == true)
+   {
+      square_checked();
+
+   }
+   if (document.getElementById('c').checked == true)
+   {
+      cubic_checked();
+
+   }
+
+   if (document.getElementById('f').checked == true)
+   {
+      fibonaci();
+
+   }
+
+   if (document.getElementById('p').checked == true)
+   {
+      prime_checked();
+
+   }
+   blankout();
+   redraw();
+}
+
+// Set shades of color
+function ColorLuminance(hex, lum)
+{
+
+   // validate hex string
+   hex = String(hex).replace(/[^0-9a-f]/gi, '');
+   if (hex.length < 6)
+   {
+      hex = hex[0] + hex[0] + hex[1] + hex[1] + hex[2] + hex[2];
+   }
+   lum = lum || 0;
+
+   // convert to decimal and change luminosity
+   var rgb = "#", c, i;
+   for (i = 0; i < 3; i ++ )
+   {
+      c = parseInt(hex.substr(i * 2, 2), 16);
+      c = Math.round(Math.min(Math.max(0, c + (c / lum)), 255)).toString(16);
+      rgb += ("00" + c).substr(c.length);
+   }
+
+   return rgb;
+}
+
+function axj()
+{
+   var expaxj = Math.sqrt(range);
+   var color = "#A52A2A";
+   var colortwo = "#E9967A";
+   var lum = 0.117;
+   nc = color;
+   nctwo = colortwo;
+   for(multip = 1; multip <= expaxj; multip ++ )
+   {
+      produkt = multip;
+      for(bas = 2; bas <= expaxj; bas ++ )
+      {
+         exp = 1;
+         nc = ColorLuminance(color, bas * lum);
+         nctwo = ColorLuminance(colortwo, bas * lum + 0.8)
+         while(produkt < range)
+         {
+            produkt = produkt * bas;
+            if ((produkt <= range) && (exp > 1) && (arr[produkt].formula == 0))
+            {
+               arr[produkt].func = (multip + "*" + bas + "^" + exp);
+               arr[ - produkt].func = (multip + "*" + bas + "^" + exp);
+               arr[produkt].rcolor = nc;
+               arr[ - produkt].rcolor = nctwo;
+               arr[produkt].fcolor = 'slategray';
+               arr[ - produkt].fcolor = 'slategray';
+               arr[produkt].formula = 1;
+               arr[ - produkt].formula = 1;
+            }
+            exp ++ ;
+         }
+
+         produkt = multip;
+      }
+
+   }
+}
+
+function fold()
+{
+   y = "beige";
+   x = "darksalmon";
+   z = "";
+   s = "DarkKhaki";
+   t =  "GoldenRod";
+   u = "";
+   part = document.fold.partitions.value * 1;
+   set = document.fold.elements.value * 1;
+   if (part < 2)part = 2;
+   if (set < 2)set = 2;
+   document.fold.partitions.value = part;
+   document.fold.elements.value = set;
+   folded = 0;
+   sumset = set;
+   sumsetold = 1;
+
+   while(sumset < range)
+   {
+
+      for (i = sumsetold; i <= sumset; i ++ )
+      {
+         arr[i].fcolor = "black";
+         arr[i].rcolor = y;
+         arr[ - i].rcolor = s;
+      }
+
+      arr[sumset].fcolor = 'white';
+      arr[sumsetold].fcolor = 'white';
+      arr[sumset].rcolor = 'orange';
+      arr[sumsetold].rcolor = 'slategray';
+      u = s;
+      s = t;
+      t = u;
+      z = y;
+      y = x;
+      x = z;
+      document.fold.min.value = sumsetold - 1;
+      document.fold.max.value = sumset;
+      document.fold.folds.value = folded;
+      document.fold.foldstwo.value = folded + 1;
+      sumsetold = sumset + 1;
+      sumset = sumset * part;
+      folded ++ ;
+   }
+
+}
+
+
+function blankout()
+{
+
+   for (var k = numbRange + 1; k <= range; k ++ )
+   {
+      arr[k].rcolor = 'white';
+
+   }
+}
+
+function notchecked()
+{
+
+   for (var k = start; k <= range; k ++ )
+   {
+      arr[k].rcolor = 'white';
+      arr[k].fcolor = 'black';
+      arr[k].func = '';
+      arr[k].formula = 0;
+   }
+}
+
+function powed()
+{
+   // pvalues = document.powers.powseq.value;
+   // var pstr = pvalues.split(",");
+   // loop = pstr.length;
+   j = Math.sqrt(range);
+
+   var color = "#4682B4 ";
+   var lum = 0.0013;
+   tc = color;
+   for(i = 2; i < j; i ++ )
+   {
+      y = i;
+      m = 0;
+      n = 1;
+      for (var k = 2; k <= range; k ++ )
+      {
+         while (m < k)
+         {
+            m = Math.pow(n, y);
+            tc = ColorLuminance(color, n * lum);
+            n ++ ;
+         }
+         s = k;
+         if (s < 0)
+         {
+            s = s * - 1;
+         }
+
+         if ((m == s) && (k <= range))
+         {
+
+            arr[k].rcolor = 'tc';
+            arr[k].fcolor = 'white';
+            arr[ - k].rcolor = 'tc';
+            arr[ - k].fcolor = 'white';
+            arr[k].func = (n - 1 + "^" + i);
+
+
+         }
+      }
+      k = 0;
+      n = 1;
+   }
+}
+
+
+function fibonaci()
+{
+   l = 1;
+   k = 1;
+   while (k <= range)
+   {
+      arr[k].rcolor = 'green';
+      arr[k].fcolor = 'white';
+      arr[ - k].rcolor = 'chartreuse';
+      m = k;
+      k = l + k;
+      l = m;
+   }
+}
+
+
+
+function square_checked()
+{
+
+   sqmax = Math.sqrt(range);
+   if (document.getElementById('sscope').checked == true)
+   {
+      oldm = 0;
+      m = 1;
+      t = 2;
+      flip = 0;
+      for (n = oldm; n <= m; n ++ )
+      {
+         if(flip == 1)
+         {
+            if(n >= range)
+            break;
+            arr[n].rcolor = 'slategray';
+            arr[n].fcolor = 'white';
+            arr[ - n].rcolor = 'black';
+            arr[ - n].fcolor = 'white';
+            if(n == m)
+            {
+               oldm = m;
+               m = t * t;
+               t ++ ;
+               flip = 0;
+            }
+
+         }
+         else
+         {
+            if(n >= range)
+            break;
+            arr[n].fcolor = 'black';
+            arr[ - n].fcolor = 'black';
+            if(n == m)
+            {
+               oldm = m;
+               m = t * t;
+               t ++ ;
+               flip = 1;
+            }
+
+
+         }
+      }
+   }
+
+   if (document.getElementById('sigmasq').checked == true)
+   {
+      n = 1;
+      m = 1;
+      j = 0;
+      for (n = 1; n < sqmax; n ++ )
+      {
+         m = n * n;
+         j = m + j;
+         if(j <= range)
+         {
+            arr[j].rcolor = 'darkslateblue';
+            arr[j].fcolor = 'white';
+            arr[ - j].rcolor = 'darkslateblue';
+            arr[ - j].fcolor = 'white';
+         }
+      }
+   }
+   n = 1;
+   m = 1;
+   for (n = 1; n < sqmax; n ++ )
+   {
+      m = n * n;
+      arr[m].rcolor = 'red';
+      arr[m].fcolor = 'white';
+      arr[ - m].rcolor = 'orange';
+      arr[ - m].fcolor = 'white';
+      arr[m].func = (n+"^"+2);
+      arr[-m].func = (n+"^"+2);
+   }
+}
+
+
+
+function cubic_checked()
+{
+   n = 1;
+   sqmax = Math.sqrt(range);
+   for (n = 1; n < sqmax; n ++ )
+   {
+      m = n * n * n;
+      if(m < range)
+      {
+         arr[m].rcolor = 'red';
+         arr[m].fcolor = 'white';
+         arr[ - m].rcolor = 'orangered';
+         arr[ - m].fcolor = 'white';
+      }
+   }
+}
+
+
+function prime_checked()
+{
+
+   for (var k = start; k <= range; k ++ )
+   {
+      if((arr[k].prime) == true )
+      {
+         arr[k].rcolor = 'blue';
+         arr[k].fcolor = 'white';
+         arr[ - k].rcolor = 'RoyalBlue';
+
+
+      }
+   }
+}
+
+
+function pos_checked()
+{
+   for (var k = start; k <= range; k ++ )
+   {
+      if(arr[k].count > 0) arr[k].rcolor = 'yellow';
+   }
+}
+
+
+function neg_checked()
+{
+   for (var k = start; k <= range; k ++ )
+   {
+      if(arr[k].count < 0)
+      {
+         arr[k].rcolor = 'gray';
+         arr[k].fcolor = 'white';
+      }
+   }
+}
+
+
+function odd_checked()
+{
+   for (var k = start; k <= range; k ++ )
+   {
+      if((arr[k].count / 2) % 1 != 0) arr[k].rcolor = 'pink';
+   }
+}
+
+function even_checked()
+{
+   for (var k = start; k <= range; k ++ )
+   {
+      if((arr[k].count / 2) % 1 == 0) arr[k].rcolor = 'lightblue';
+   }
+}
+
+
+// MANIPULATE OUTPUT FUNCTIONS ZOOM, NEXT, PREV, OFFSET
+
+function startPos()
+{
+   adder = 0;
+   numberStart = document.Xdoit.start_At.value * 1;
+   redraw();
+}
+
+
+function next()
+{
+   adder = + 1;
+   redraw();
+
+}
+
+
+function prev()
+{
+   adder = - 1;
+   redraw();
+
+}
+
+
+function zoomin()
+{
+
+   size = - 1;
+   size_font_square();
+   redraw();
+}
+
+
+function zoomout()
+{
+   size = + 1;
+   size_font_square()
+   redraw();
+}
+
+
+function square_size()
+{
+   size = 0;
+   divisorGlobal = document.Zdoit.sqsize.value * 1;
+   if(divisorGlobal < 1)divisorGlobal = 1;
+   size_font_square()
+   redraw();
+}
+
+
+function offset()
+{
+   adder = 0;
+   xxled = document.Ldoit.xledf.value
+   yyled = document.Ldoit.yledf.value
+   redraw();
+}
+
+
+function plusX()
+{
+   adder = 0;
+   xxled ++ ;
+   document.Ldoit.xledf.value = xxled;
+   redraw();
+}
+
+
+function minusX()
+{
+   adder = 0;
+   xxled -- ;
+   document.Ldoit.xledf.value = xxled;
+   redraw();
+}
+
+
+function plusY()
+{
+   adder = 0;
+   yyled ++ ;
+   document.Ldoit.yledf.value = yyled;
+   redraw();
+}
+
+
+function minusY()
+{
+   adder = 0;
+   yyled -- ;
+   document.Ldoit.yledf.value = yyled;
+   redraw();
+}
+
+
+function ipart()
+{
+   part = document.fold.partitions.value * 1;
+   part ++ ;
+   if(part < 1)part = 1;
+   document.fold.partitions.value = part;
+
+   recheck();
+}
+
+
+function dpart()
+{
+
+
+   part = document.fold.partitions.value * 1;
+   part -- ;
+   if(part < 2)part = 2;
+   document.fold.partitions.value = part;
+   recheck();
+
+}
+
+
+function ival()
+{
+
+   element = document.fold.elements.value * 1;
+   element ++ ;
+   if(element < 2)element = 2;
+   document.fold.elements.value = element;
+
+   recheck();
+}
+
+
+function dval()
+{
+   element = document.fold.elements.value * 1;
+   element -- ;
+   if(element < 2)element = 2;
+   document.fold.elements.value = element;
+   recheck();
+}
+
+
+</script>
+</div>
+<div id="footer" style="background-color:royalblue;clear:both;text-align:left;">
+Copyright © Jonas Thörnvall <font color="gold" size="1">jonas.thornvall@hotmail.com
+<a href="https://lh4.googleusercontent.com/-TFTerTz_JTY/UyXP_dLMW2I/AAAAAAAAJHQ/pE2FPKLKkDY/w720-h540-no/N%25C3%25A9gyzetgy%25C3%25B6k+3D.gif" alt="some_text" width="170" color="gold">roots</a>
+<a href="https://www.youtube.com/watch?v=f3WiBxO3nOw">Dynamic Sequense 21</a>
+<a href="https://www.youtube.com/watch?v=SwB0ZJbwmpw">Gold member</a>
+<a href="http://finalcutfilm.files.wordpress.com/2014/03/download2.jpg">Gladiator</a> </font>  </div>
+</div>
+</body>
+</html>
