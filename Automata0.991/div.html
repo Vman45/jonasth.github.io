@@ -1,0 +1,785 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-Equiv="Cache-Control" Content="no-cache">
+    <meta http-Equiv="Pragma" Content="no-cache">
+    <meta http-Equiv="Expires" Content="0">
+</head>
+
+<body onload=first_call();>
+
+<div id="container" style="width:2100px">
+
+<div id="header" style="background-color:#FFA500;">
+<table width=2100 border="2" bgcolor="White" ><tr><td>
+<B>PRIME EXPLORER v0.991 added input for geometric series, and better visual<BR>
+
+<font size=1></B>jonas.thornvall@hotmail.com</font></td>
+</tr></table>
+
+</div>
+
+<div id="menu" style="background-color:lightgray;height:2000px;width:140px;float:left;">
+
+<FONT=BOLD>
+
+<table border="2" bgcolor="grey" width=140>
+
+<tr>
+
+<td align=middle bgcolor="yellow">+<BR><input type="checkbox" id="pos" name="pos" onchange=recheck(); ></td>
+<td align=middle bgcolor="lightgrey">-<BR><input type="checkbox" id="neg" name="neg" onchange=recheck(); ></td>
+<td align=middle bgcolor="blue">P<BR><input id="p" type="checkbox" name="p" onchange=recheck(); checked="yes"></td>
+<td align=middle bgcolor="red">Sq<BR><input type="checkbox" name="sq" id="sq" onchange=recheck(); checked="yes"></td>
+</tr>
+<tr>
+<td align=middle bgcolor="darkorchid">C<BR><input type="checkbox" name="c" id="c" onchange=recheck(); checked="yes"></td>
+<td align=middle bgcolor="pink">O <BR><input type="checkbox" name="o" id="o"  onchange=recheck(); ></td>
+<td align=middle bgcolor="lightblue">E <BR><input type="checkbox" name="e" id="e" onchange=recheck(); ></td>
+<td align=middle bgcolor="green">F <BR><input type="checkbox" name="f" id="f" onchange=recheck(); checked="yes"></td>
+
+</tr>
+<tr><td align=middle bgcolor="beige">GS<BR><input type="checkbox" name="z" id="z" onchange=recheck(); checked="yes"></td>
+</tr>
+</table>
+
+<table border="2" bgcolor="beige" width=140><tr><td>
+<FORM NAME=fold onSubmit="recheck(); return false;">
+<B>Geometric SERIE</B><BR></td></tr><tr><td>
+StartValue <input type="text" name="elements" value="4" size="1"><BR>
+Partitions <input type="text" name="partitions" value="4" size="1"><BR>
+<input type=submit value="FOLD">
+</FORM>
+</td></tr></table>
+
+<table table bgcolor="beige" border="2" width=140><tr><td>
+<FORM NAME=incv onSubmit="ival(); return false;">
+<input type=submit name="incval" value="S+">
+</FORM>
+</td><td>	
+<FORM NAME=decv onSubmit="dval(); return false;">
+<input type=submit name="decval" value="S-">
+</FORM>
+</td></tr><tr><td>
+<FORM NAME=incp onSubmit="ipart(); return false;">
+<input type=submit name="incpart" value="P+">
+</FORM>
+</td><td>
+<FORM NAME=decp onSubmit="dpart(); return false;">
+<input type=submit name="decpart" value="P-">
+</FORM>
+</td></tr></table>
+
+
+
+<table border="2" bgcolor="yellow" width=140><tr><td>
+<FORM NAME=Xdoit onSubmit="reinitiate(); return false;">
+<input type=submit value="N min">
+<input type="text" name="start_At" value="1" size="4">
+</FORM>
+</td></tr></table>
+
+<table border="2" bgcolor="yellow" width=140><tr><td>
+<FORM NAME=Adoit onSubmit="next(); return false;">
+<input type=submit value="Forw">
+</FORM> </td><td>
+
+<FORM NAME=Bdoit onSubmit="prev(); return false;">
+<input type=submit value="Backw">
+</FORM>
+</td></tr></table>
+
+
+
+<table border="2" bgcolor="yellow" width=140><tr><td bgcolor="green">
+<FORM NAME=Edoit onSubmit="initanime(); return false;">
+<input type=submit name="init_anime" value="Anim"></FORM></td>
+<td bgcolor="red">
+<FORM NAME=Fdoit onSubmit="stopanime(); return false;">
+<input type=submit name="stop_anime" value="haltA">
+</FORM>
+</td></tr></table>
+
+
+<table border="2" bgcolor="lightblue" width=140><tr><td>
+<FORM NAME=Jdoit onSubmit="reinitiate(); return false;">
+<input type=submit value="N max">
+<input type="text" name="rangeN" value="2700" size="6">
+</FORM>
+</td></tr></table>
+
+
+
+
+
+<table border="1" bgcolor="grey" width=140><tr><td>
+<FORM NAME=Cdoit onSubmit="zoomin(); return false;">
+<input type=submit name="zoom_in" value="Zoom+"><P>
+</FORM>
+</td><td>
+<FORM NAME=Ddoit onSubmit="zoomout(); return false;">
+<input type=submit name="zoom_out" value="Zoom-"><P>
+</FORM>
+</td></tr></table>
+
+<table border="2" bgcolor="grey" width=140<tr><td>
+<FORM NAME=Zdoit onSubmit="square_size(); return false;">
+<input type=submit value="SQ size">
+<input type="text" name="sqsize" value="2" size="3"><br>
+</FORM>
+</td></tr></table>
+
+<table border="2" bgcolor="yellow" width=140><tr><td colspan="2">
+<FORM NAME=Ldoit onSubmit="offset(); return false;">
+<input type=submit value="N offset Col/Row">
+</td></tr><tr><td>
+X-<input type="text" name="xledf" value="1" size="2"></td><td>
+Y-<input type="text" name="yledf" value="0" size="2">
+</FORM>
+</td></tr></table>
+<table border="2" bgcolor="yellow" width=140><tr><td>
+<FORM NAME=xplus onSubmit="plusX(); return false;">
+<input type=submit name="x_plus" value="X+">
+</FORM>
+
+</td><td>
+<FORM NAME=xminus onSubmit="minusX(); return false;">
+<input type=submit name="x_minus" value="X-">
+</FORM>
+</td></tr><tr><td>
+
+<FORM NAME=yplus onSubmit="plusY(); return false;">
+<input type=submit name="y_plus" value="Y+">
+</FORM>
+</td><td>
+
+<FORM NAME=yminus onSubmit="minusY(); return false;">
+<input type=submit name="y_minus" value="Y-">
+</FORM>
+</td></tr></table>
+</div>
+
+
+<div id="content" style="background-color:lightyellow;height:1900px;width:1900;float:left;">
+<canvas id="myCanvas" width="1900" height="1900">Your browser does not support the HTML5 canvas tag.</canvas>
+
+
+<script type="text/javascript">
+
+
+//Global variables
+var square = 0;
+var size = 0;
+var run = 0;
+var back = 0;
+var down = 0;
+var adder = 0;
+var refresh = 5;
+var width = 0;
+var height = 0;
+var primearray = new Array();
+var arr = new Array();
+var start=0;
+var range=0;
+
+// HERE IS THE DRAW FUNCTIONS
+
+function redraw()
+{
+   clear();
+   init();
+   paint_logic();
+}
+
+
+function clear()
+{
+   ctx.clearRect(0, 0, 1900, 1900);
+}
+
+function init()
+{
+
+   down = yyled;
+   back = xxled;
+   v_inner = 0;
+   h_inner = 0;
+   h_outer = 0;
+   v_outer = 0;
+   vcoffset = 0;
+   hcoffset = 0;
+
+   if(adder != 0)numberStart = numberStart + adder;
+   number = numberStart;
+   h_outer = asize * (back);
+   if (xxled < 0)
+   {
+      vcoffset = (xxled * - asize);
+   }
+   if (yyled < - 0)
+   {
+      hcoffset = (yyled * - asize);
+   }
+}
+
+function paint_logic()
+{
+   while(number < numbRange)
+   
+   {
+      document.Xdoit.start_At.value = numberStart;
+      vertical = 0;
+      v_outer = 0;
+      v_inner = v_outer;
+      h_inner = h_outer;
+      square = 0;
+      negsquare = 0;
+
+      while(vertical < down)
+      {
+         if (number == 0) number ++ ;
+
+         paint_out();
+         v_inner = v_inner + asize;
+         vertical ++ ;
+         number ++ ;
+      }
+      down ++ ;
+      horisontal = 0;
+      h_inner = h_outer;
+
+      while(horisontal < back)
+      {
+         if (number == 0) number ++ ;
+         paint_out();
+         h_inner = h_inner - asize;
+         horisontal ++ ;
+         number ++ ;
+      }
+      back ++ ;
+      h_outer = h_outer + asize;
+   }
+   number ++ ;
+} 
+
+function paint_out()
+{
+
+   ctx.fillStyle = arr[number].rcolor;
+   ctx.fillRect(h_inner + vcoffset, v_inner + hcoffset, width, height);
+   // Write out numbers
+   ctx.fillStyle = arr[number].fcolor;
+   if (divisor < 4)ctx.fillText(number, h_inner + 3 + vcoffset, v_inner + 15 + hcoffset);
+}
+
+// HERE IS ANIMATION FUNCTIONS
+
+function initanime()
+{
+   // CALLED FROM FORM
+   size = 0;
+   adder = -1;
+   refresh = setInterval(redraw, 1);
+}
+
+function stopanime()
+{
+   // CALLED FROM FORM
+   adder = 0;
+   size = 0;
+   clearInterval(refresh);
+}
+
+
+// THIS IS MAIN FORM CALL AT LOAD
+
+function first_call()
+{
+   canvas = document.getElementById("myCanvas");
+   ctx = canvas.getContext("2d");
+   reinitiate();
+}
+
+function reinitiate()
+{
+   size=0;
+   // Fetch values from form
+   numbRange = document.Jdoit.rangeN.value * 1;
+   numberStart = document.Xdoit.start_At.value * 1;
+   divisorGlobal = document.Zdoit.sqsize.value * 1;
+   xxled = document.Ldoit.xledf.value * 1;
+   yyled = document.Ldoit.yledf.value * 1;
+   range=numbRange+10000;
+   start=numberStart-10000;
+   // Call the functions
+   isPrime();
+   size_font_square();
+   arraysize();
+   recheck();
+}
+
+// Calculate primes in range
+function isPrime()
+{
+   n = range;
+   // Eratosthenes algorithm to find all primes under n
+   upperLimit = Math.sqrt(n);
+
+   // Make an array from 2 to (n - 1)
+   primearray[0] = false;
+   primearray[1] = false;
+   for (var i = 0; i < n; i ++ )
+   {
+      primearray.push(true);
+   }
+
+   // Remove multiples of primes starting from 2, 3, 5, ...
+   i = 2;
+   while (i <= upperLimit)
+   {
+      if (primearray[i])
+      {
+         for (var j = i * i; j < n; j += i)
+         {
+            primearray[j] = false;
+
+         }
+      }
+      i ++ ;
+   }
+   return primearray;
+}
+
+// Set paintout size
+function size_font_square()
+{
+
+   divisorGlobal = divisorGlobal + size;
+
+   // Set size range 1 -> 100
+   if (divisorGlobal == 0)
+   {
+      divisorGlobal = 1;
+   }
+   else if (divisorGlobal > 100)
+   {
+      divisorGlobal = divisorGlobal - 1;
+   }
+   // Write out Zoom factor to form
+   document.Zdoit.sqsize.value = divisorGlobal;
+   // Global magnitude objects
+   divisor = divisorGlobal;
+   // Set fontsize
+   fstor = 17 / divisor;
+   ctx.font = "" + fstor + "px Arial";
+   // Set distance squares
+   asize = 67 / divisor;
+   // Set square size
+   storlek = 54;
+   height = storlek / divisor;
+   width = storlek / divisor;
+}
+
+function getsquare()
+{
+squareroot=Math.sqrt(numbRange);
+squareroot=squareroot+1;
+sqval=squareroot*squareroot;
+return sqval;
+}
+
+function arraysize()
+{
+   //getsquare();
+   
+   for ( i = start; i <= range; i ++ )
+   {
+      arr[i] =
+      {
+         count : i,
+         fcolor : 'black',
+         rheight : 100,
+         rwidth : 100,
+         rcolor : 'white'
+      }
+
+   }
+
+}
+
+// HERE IS FUNCTIONS REACTING AT CHANGE OF CHECKBOXES
+
+function recheck()
+{
+   notchecked();
+   if (document.getElementById('pos').checked == true)
+   {
+      pos_checked();
+
+   }
+   if (document.getElementById('neg').checked == true)
+   {
+      neg_checked();
+
+   }
+   if (document.getElementById('o').checked == true)
+   {
+      odd_checked();
+
+   }
+   if (document.getElementById('e').checked == true)
+   {
+      even_checked();
+
+   }
+   if (document.getElementById('p').checked == true)
+   {
+      prime_checked();
+
+   }
+   if (document.getElementById('sq').checked == true)
+   {
+      square_checked();
+
+   }
+   if (document.getElementById('c').checked == true)
+   {
+      cubic_checked();
+
+   }
+if (document.getElementById('f').checked == true)
+   {
+      fibonaci();
+
+   }
+
+if (document.getElementById('z').checked == true)
+   {
+    fold();
+
+   }
+   blankout();
+   redraw();
+}
+
+
+//function fold_anim(){
+//   refresh = setInterval(redraw, 1);
+//   y="blue";
+//   x="yellow";
+//   z="";
+//   part=2;
+//   set=2;
+//   
+// while (part=range){
+//part = document.fold.partitions.value * 1;
+//set = document.fold.elements.value * 1;
+//   if (part<2)part=2;
+//   if (set<2)set=2;
+//   folded=1;
+//   sumset=set;
+//   sumsetold=1;
+//   while(sumset<range){
+//         for (i=sumsetold;i<=sumset;i++){
+//         arr[i].fcolor = x;
+//         arr[i].rcolor = y;
+//         }
+//         z=y;
+//         y=x;
+//         x=z;  
+//         sumsetold=sumset+1;
+//         sumset=sumset*part; 
+//         folded++;           
+//     }
+//part++;
+//}
+//
+//}
+
+
+
+function fold(){
+   y="beige";
+   x="darksalmon";
+   z="";
+   part = document.fold.partitions.value * 1;
+   set = document.fold.elements.value * 1;
+   if (part<2)part=2;
+   if (set<2)set=2;
+   document.fold.partitions.value = part;
+   document.fold.elements.value = set;
+   folded=1;
+   sumset=set;
+   sumsetold=1;
+   while(sumset<range){
+          
+         for (i=sumsetold;i<=sumset;i++){
+         arr[i].fcolor = x;
+         arr[i].rcolor = y;
+         }
+         arr[sumset].fcolor = 'white';
+         arr[sumset].rcolor = 'orange';
+         z=y;
+         y=x;
+         x=z;  
+         sumsetold=sumset+1;
+         sumset=sumset*part;
+         folded++;           
+     }
+}
+
+
+function blankout()
+{
+   // document.write(numberStart); p.stop();
+   for (var k = numbRange+1; k <= range; k ++ )
+   {
+      arr[k].rcolor = 'Bisque';
+   }
+}
+
+function notchecked()
+{
+   // document.write(numberStart); p.stop();
+   for (var k = start; k <= range; k ++ )
+   {
+      arr[k].rcolor = 'white';
+      arr[k].fcolor = 'black';
+   }
+}
+
+function fibonaci()
+{
+   // document.write(numberStart); p.stop();
+   l=1;
+   k=2;
+   m=0;
+   while (k<=range)
+   {  
+      arr[l].rcolor = 'green';
+      arr[k].rcolor = 'green';
+      m=k;  
+      k=l+k;
+      l=m;
+   }
+}
+
+function square_checked()
+{
+       m=0;
+       n=1;
+       for (var k = start; k <= range; k ++ ) {
+       while (m<k) {
+       m=n*n;
+       n++;
+       }
+       s=k;  
+       if (s<0) {s=s*-1;} 
+       if (m==s	) { arr[k].rcolor = 'red';}
+     }
+}
+
+
+function cubic_checked() {
+       m=0;
+       n=1;
+    
+       for (var k = start; k <= range; k ++ ) {
+       while (m<k) {
+       m=n*n*n;
+       n++;
+       }
+       s=k;  
+       if (s<0) {s=s*-1;}   
+       if (m==s) arr[k].rcolor = 'darkorchid';
+     }
+}
+
+
+function prime_checked()
+{
+   for (var k = start; k <= range; k ++ )
+   {
+      if((primearray[k]) == true ) arr[k].rcolor = 'blue';
+   }
+}
+
+function pos_checked()
+{
+   for (var k = start; k <= range; k ++ )
+   {
+      if(k > 0) arr[k].rcolor = 'yellow';
+   }
+}
+
+function neg_checked()
+{
+   for (var k = start; k <= range; k ++ )
+   {
+      if(k < 0) arr[k].rcolor = 'gray';
+   }
+}
+
+function odd_checked()
+{
+   for (var k = start; k <= range; k ++ )
+   {
+      if((k / 2) % 1 != 0) arr[k].rcolor = 'pink';
+   }
+}
+
+function even_checked()
+{
+   for (var k = start; k <= range; k ++ )
+   {
+      if((k / 2) % 1 == 0) arr[k].rcolor = 'lightblue';
+   }
+}
+
+
+// MANIPULATE OUTPUT FUNCTIONS
+
+function startPos()
+{
+
+   numberStart = document.Xdoit.start_At.value * 1;
+   redraw();
+}
+
+function next()
+{
+
+   size = 0;
+   adder = + 1;
+   redraw();
+}
+
+function prev()
+{
+   size = 0;
+   adder = - 1;
+   redraw();
+}
+
+
+function zoomin()
+{
+   //adder = 0;
+   size = - 1;
+   size_font_square();
+   redraw();
+}
+
+function zoomout()
+{
+   //adder = 0;
+   size = + 1;
+   size_font_square()
+   redraw();
+}
+
+function square_size()
+{
+   size = 0;
+   divisorGlobal = document.Zdoit.sqsize.value * 1;
+   size_font_square()
+   redraw();
+}
+
+function offset()
+{
+   size = 0;
+   adder = 0;
+   xxled = document.Ldoit.xledf.value
+   yyled = document.Ldoit.yledf.value
+   redraw();
+}
+
+function plusX()
+{
+   adder = 0;
+   xxled ++ ;
+   document.Ldoit.xledf.value = xxled;
+   redraw();
+}
+
+function minusX()
+{
+   adder = 0;
+   xxled -- ;
+   document.Ldoit.xledf.value = xxled;
+   redraw();
+}
+
+function plusY()
+{
+   adder = 0;
+   yyled ++ ;
+   document.Ldoit.yledf.value = yyled;
+   redraw();
+}
+
+function minusY()
+{
+   adder = 0;
+   yyled -- ;
+   document.Ldoit.yledf.value = yyled;
+   redraw();
+}
+
+function ipart()
+{
+   
+   part = document.fold.partitions.value * 1;
+   part++;
+   if(part<1)part=1;
+   document.fold.partitions.value = part;
+ 
+   recheck();
+}
+function dpart()
+{
+   
+   
+   part = document.fold.partitions.value * 1;
+   part--;
+   if(part<2)part=2;
+   document.fold.partitions.value = part;
+   recheck();
+   
+}
+
+function ival()
+{
+   
+   element = document.fold.elements.value * 1;
+   element++;
+   if(element<2)element=2;
+   document.fold.elements.value = element;
+ 
+   recheck();
+}
+function dval()
+{
+   
+   
+   element = document.fold.elements.value * 1;
+   element--;
+   if(element<2)element=2;
+   document.fold.elements.value = element;
+   recheck();
+   
+}
+
+
+</script>
+
+</div>
+
+<div id="footer" style="background-color:lightblue;clear:both;text-align:center;">
+Copyright © Jonas Thörnvall</div>
+
+</div>
+
+</body>
+</html>
