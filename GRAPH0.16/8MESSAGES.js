@@ -23,3 +23,4 @@ function update_GraphData() {
     }
     document.graph.data.value = autotext + mytext + "Paint Order " + printnode + "\n";
 }
+
