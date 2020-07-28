@@ -6,7 +6,7 @@ function MAIN() {
 }
 
 function INTRO() {
-    mycount = 200;
+    mycount = 300;
     document.NoLinks.linkval.value = mycount;
     document.getElementById('mysubset').selectedIndex = 1;
     bananas = setInterval(function() {
