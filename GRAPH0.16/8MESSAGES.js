@@ -12,7 +12,7 @@ function messages_canvas() {
 
 function autograph_message() {
     autotext = "SEARCH Regular " + param1 + "\n" + "SEARCH Connected " + param2 + "\n" + "FOUND Regular " + regular + "\n" + "FOUND Connected " + connected + "\n";
-    update_GraphData();
+   // update_GraphData();
 }
 
 function update_GraphData() {
