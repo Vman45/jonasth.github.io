@@ -61,3 +61,4 @@ function generate_graph() {
     }
     mytext += "Printnode " + printnode.length + "\n";
 }
+
