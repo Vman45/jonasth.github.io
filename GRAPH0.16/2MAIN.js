@@ -11,7 +11,7 @@ function INTRO() {
     document.getElementById('mysubset').selectedIndex = 1;
     bananas = setInterval(function() {
         monkeybuisness();
-    }, 50);
+    }, 10);
 }
 
 function monkeybuisness() {
