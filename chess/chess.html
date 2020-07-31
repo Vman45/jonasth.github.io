@@ -346,12 +346,14 @@ if (turn=="white"){
 			posMoves[0]=8;
 			posMoves[1]=16;
 			if (tileElement[u].occupied==false){
+				ctm.beginPath();
 				ctm.arc(tileElement[u].X+50, tileElement[u].Y+50, 15, 0, 2 * Math.PI);
 				ctm.fill();
 				ctm.arc(tileElement[v].X+50, tileElement[v].Y+50, 15, 0, 2 * Math.PI);
 				ctm.fill();
 			}
 			else if (tileElement[u].occupied==false){
+				ctm.beginPath();
 				ctm.arc(tileElement[v].X+50, tileElement[u].Y+50, 15, 0, 2 * Math.PI);
 				ctm.fill();
 			}
@@ -370,12 +372,14 @@ if (turn=="black"){
 			posMoves[0]=8;
 			posMoves[1]=16;
 			if (tileElement[u].occupied==false){
+				ctm.beginPath();
 				ctm.arc(tileElement[u].X+50, tileElement[u].Y+50, 15, 0, 2 * Math.PI);
 				ctm.fill();
 				ctm.arc(tileElement[v].X+50, tileElement[v].Y+50, 15, 0, 2 * Math.PI);
 				ctm.fill();
 			}
 			else if (tileElement[u].occupied==false){
+				ctm.beginPath();
 				ctm.arc(tileElement[v].X+50, tileElement[u].Y+50, 15, 0, 2 * Math.PI);
 				ctm.fill();
 			}
