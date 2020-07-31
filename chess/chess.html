@@ -149,9 +149,9 @@ function mousedown_logic() {
 }
 
 function playWhite(t){
-		 if (posMoves.length!=0){
+	if (posMoves.length!=0){
 		for (var j=0;j<posMoves.length;j++){ 
-			
+			 if (t==posMoves[j]){ movePice();}
 		}
 	}
 		if (tileElement[t].pieceColor=="W" ){
@@ -163,7 +163,7 @@ function playWhite(t){
 	
 }
 
-function movePiece(){alert("jons");}
+function movePiece(){alert("jonas");}
 
 function colorChoice(){
 uplayer="";
