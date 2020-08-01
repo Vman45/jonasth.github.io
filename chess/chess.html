@@ -19,6 +19,7 @@ let vertical=[];
 let diagonalRight=[];
 let diagonalLeft=[];
 let posMoves=[];
+let oldMoves=[];
 turn="white";
 whiteMarked=false;
 blackMarked=false;
@@ -36,6 +37,38 @@ oldMark=64;
 //	  W:0,	
 //	  H:0,	
 // };
+
+function stop_listeners() {
+    c.removeEventListener('mouseup', start_listeners);
+    c.removeEventListener('mousedown', start_listeners);
+    c.removeEventListener('getPosition', start_listeners);
+}
+
+// Start listener
+function start_listener() {
+    mousePos = [0, 0];
+    mouseDown = [0, 0];
+    mouseUp = [0, 0];
+    c.addEventListener("mouseup", function(evt) {
+        mouseUp = getPosition(ctm, evt);
+        message = 'Mouse up: ' + mouseUp.x + ',' + mouseUp.y;
+		mouseOp();
+        
+    }, false);
+    c.addEventListener("mousedown", function(evt) {
+        mouseDown = getPosition(ctm, evt);
+        message = 'Mouse down: ' + mouseDown.x + ',' + mouseDown.y;
+		mouseOp();
+        mousedown_logic();
+		
+    }, false);
+    c.addEventListener('mousemove', function(evt) {
+       mousePos = getPosition(ctm, evt);
+       message = 'Mouse position: ' + mousePos.x + ',' + mousePos.y;
+	   mouseOp();
+	  // arrayScan();
+    }, false);
+}
 
 function initTiles(){
 	tileElement.push({tileColor:"W",tileName:"H1",occupied:true,pieceColor:"W",pieceType:"R",startMark:false});
@@ -148,22 +181,145 @@ function mousedown_logic() {
 	} 
 }
 
-function playWhite(t){
-	if (posMoves.length!=0){
-		for (var j=0;j<posMoves.length;j++){ 
-			 if (t==posMoves[j]){ movePice();}
-		}
-	}
-		if (tileElement[t].pieceColor=="W" ){
-			if (startTile==false && endTile==false){
-				releaseTile(oldMark);
-				markTile(t); 
+function chess(){
+    ctm.fillStyle = "#383428";
+	ctm.fillRect(0, 0, 1500, 850);
+	colorChoice();
+	initTiles();
+	moveDB();
+	board();
+	start_listener();
+}
+
+function movePiece(oldMark,t){
+//alert("oldMark="+oldMark+" T="+t);
+savePiece=tileElement[oldMark].pieceType;
+savePC=tileElement[oldMark].pieceColor;
+tileElement[oldMark].pieceColor="";
+tileElement[oldMark].pieceType="";
+tileElement[t].pieceType=savePiece;
+tileElement[t].pieceColor=savePC;
+board();
+}
+
+function WpawnMove(t){
+		//White pawn start move
+		if (t>7 && t<16){
+			ctm.fillStyle = "chartreuse";
+			u=t+8;v=t+16;
+			posMoves[0]=u;
+			posMoves[1]=v;
+			if (tileElement[u].occupied==false){
+				ctm.beginPath();
+				ctm.arc(tileElement[u].X+50, tileElement[u].Y+50, 15, 0, 2 * Math.PI);
+				ctm.fill();
+				ctm.arc(tileElement[v].X+50, tileElement[v].Y+50, 15, 0, 2 * Math.PI);
+				ctm.fill();
+			}
+			
+		}		
+}
+
+function BpawnMove(t){
+		//Black pawn start move
+		if (t>47 && t<56){
+			posMoves.length=0;
+			ctm.fillStyle = "chartreuse";
+			u=t-8;v=t-16;
+			posMoves[0]=u;
+			posMoves[1]=v;
+			if (tileElement[u].occupied==false){
+				ctm.beginPath();
+				ctm.arc(tileElement[u].X+50, tileElement[u].Y+50, 15, 0, 2 * Math.PI);
+				ctm.fill();
+				ctm.arc(tileElement[v].X+50, tileElement[v].Y+50, 15, 0, 2 * Math.PI);
+				ctm.fill();
 			}
 		}
+}
+
+function drawPosMoves(t){
+if (turn=="white"){
+    if (tileElement[t].pieceType=="P"){WpawnMove(t);}
+}
+
+if (turn=="black"){
+    if (tileElement[t].pieceType=="P"){BpawnMove(t);	}
+}
+}
+
+
+function playBlack(t){
+	if (posMoves.length!=0){
+		for (var j=0;j<posMoves.length;j++){ 
+			 if (t==posMoves[j]){ movePiece(oldMark,t);turn="white";posMoves.length=0;oldMoves.length=0;}
+		}
+	}
+	if (tileElement[t].pieceColor=="B" ){
+				releaseTile(oldMark);
+				releaseOldMoves();
+				markTile(t); 
+				drawPosMoves(t);
+				oldMoves = posMoves.slice();
+	}
 	
 }
 
-function movePiece(){alert("jonas");}
+function playWhite(t){
+ 	if (posMoves.length!=0){
+		for (var j=0;j<posMoves.length;j++){ 
+			 if (t==posMoves[j]){ movePiece(oldMark,t);turn="black";posMoves.length=0;oldMoves.length=0;}
+		}
+	}
+	if (tileElement[t].pieceColor=="W" ){
+				releaseTile(oldMark);
+				releaseOldMoves();
+				markTile(t); 
+				drawPosMoves(t);
+				oldMoves = posMoves.slice();
+	}
+}
+
+function releaseOldMoves(){
+    //alert("JT REL "+oldMoves);
+	for (var j=0;j<oldMoves.length;j++){
+	setTileColor(oldMoves[j]);
+	ctm.fillStyle = setColor;
+	ctm.fillRect(tileElement[oldMoves[j]].X,tileElement[oldMoves[j]].Y,tileElement[oldMoves[j]].W,tileElement[oldMoves[j]].H);
+	tileElement[oldMoves[j]].startMark=false;
+	drawPiece(oldMoves[j]);
+	boardPos(oldMoves[j]);
+	}
+	// if(oldMark<64){
+   
+	//}
+}
+
+function releaseTile(oldMark){
+  	if(oldMark<64){
+    setTileColor(oldMark);
+	ctm.fillStyle = setColor;
+	ctm.fillRect(tileElement[oldMark].X,tileElement[oldMark].Y,tileElement[oldMark].W,tileElement[oldMark].H);
+	tileElement[oldMark].startMark=false;
+	drawPiece(oldMark);
+	boardPos(oldMark);
+	}
+}
+
+function markTile(t){
+  		if (tileElement[t].startMark==false){
+			oldMark=t;
+			ctm.fillStyle = "chartreuse";
+			ctm.fillRect(tileElement[t].X,tileElement[t].Y,tileElement[t].W,tileElement[t].H);
+			tileElement[t].startMark=true;
+			drawPiece(t);
+			boardPos(t);
+			
+		}
+}
+
+
+
 
 function colorChoice(){
 uplayer="";
@@ -177,26 +333,6 @@ else if(sel=="black") {uplayer="black";}
 function random(){
 holder = Math.random() < 0.5;
 if (holder==true){uplayer="white";} else if (holder==false){uplayer="black";}
-}
-
-function chess(){
-    ctm.fillStyle = "#383428";
-	ctm.fillRect(0, 0, 1500, 850);
-	colorChoice();
-	initTiles();
-	moveDB();
-	board();
-	start_listener();
-
-}
-
-
-
-
-function playBlack(t){
-	releaseTile(oldMark);
-	markTile(t); 
-	//turn="white";
 }
 
 function board(){
@@ -280,114 +416,6 @@ function savePiecePos(i){
 }
 
 
-function stop_listeners() {
-    c.removeEventListener('mouseup', start_listeners);
-    c.removeEventListener('mousedown', start_listeners);
-    c.removeEventListener('getPosition', start_listeners);
-}
-
-// Start listener
-function start_listener() {
-    mousePos = [0, 0];
-    mouseDown = [0, 0];
-    mouseUp = [0, 0];
-    c.addEventListener("mouseup", function(evt) {
-        mouseUp = getPosition(ctm, evt);
-        message = 'Mouse up: ' + mouseUp.x + ',' + mouseUp.y;
-		mouseOp();
-        
-    }, false);
-    c.addEventListener("mousedown", function(evt) {
-        mouseDown = getPosition(ctm, evt);
-        message = 'Mouse down: ' + mouseDown.x + ',' + mouseDown.y;
-		mouseOp();
-        mousedown_logic();
-		
-    }, false);
-    c.addEventListener('mousemove', function(evt) {
-       mousePos = getPosition(ctm, evt);
-       message = 'Mouse position: ' + mousePos.x + ',' + mousePos.y;
-	   mouseOp();
-	  // arrayScan();
-    }, false);
-}
-
-function releaseTile(oldMark){
-  	if(oldMark<64){
-    setTileColor(oldMark);
-	ctm.fillStyle = setColor;
-	ctm.fillRect(tileElement[oldMark].X,tileElement[oldMark].Y,tileElement[oldMark].W,tileElement[oldMark].H);
-	tileElement[oldMark].startMark=false;
-	drawPiece(oldMark);
-	boardPos(oldMark);
-	}
-}
-
-function markTile(t){
-  		if (tileElement[t].startMark==false){
-			oldMark=t;
-			ctm.fillStyle = "chartreuse";
-			ctm.fillRect(tileElement[t].X,tileElement[t].Y,tileElement[t].W,tileElement[t].H);
-			tileElement[t].startMark=true;
-			drawPiece(t);
-			boardPos(t);
-			drawPosMoves(t);
-		}
-}
-
-function drawPosMoves(t){
-if (turn=="white"){
-   
-    if (tileElement[t].pieceType=="P"){
-	//White pawn start move
-		if (t>7 && t<16){
-			ctm.fillStyle = "chartreuse";
-			u=t+8;v=t+16;
-			posMoves[0]=8;
-			posMoves[1]=16;
-			if (tileElement[u].occupied==false){
-				ctm.beginPath();
-				ctm.arc(tileElement[u].X+50, tileElement[u].Y+50, 15, 0, 2 * Math.PI);
-				ctm.fill();
-				ctm.arc(tileElement[v].X+50, tileElement[v].Y+50, 15, 0, 2 * Math.PI);
-				ctm.fill();
-			}
-			else if (tileElement[u].occupied==false){
-				ctm.beginPath();
-				ctm.arc(tileElement[v].X+50, tileElement[u].Y+50, 15, 0, 2 * Math.PI);
-				ctm.fill();
-			}
-		}		
-	}
-}
-
-if (turn=="black"){
-    if (tileElement[t].pieceType=="P"){
-	
-	//Black pawn start move
-		if (t>47 && t<56){
-			posMoves.length=0;
-			ctm.fillStyle = "chartreuse";
-			u=t-8;v=t-16;
-			posMoves[0]=8;
-			posMoves[1]=16;
-			if (tileElement[u].occupied==false){
-				ctm.beginPath();
-				ctm.arc(tileElement[u].X+50, tileElement[u].Y+50, 15, 0, 2 * Math.PI);
-				ctm.fill();
-				ctm.arc(tileElement[v].X+50, tileElement[v].Y+50, 15, 0, 2 * Math.PI);
-				ctm.fill();
-			}
-			else if (tileElement[u].occupied==false){
-				ctm.beginPath();
-				ctm.arc(tileElement[v].X+50, tileElement[u].Y+50, 15, 0, 2 * Math.PI);
-				ctm.fill();
-			}
-		}
-	}
-}
-}
-
 function arrayScan(){
 for (var t=0;t<64;t++){
 	if (tileElement[t].startMark==false){
@@ -409,8 +437,6 @@ for (var t=0;t<64;t++){
 	}
 }
 }
-
-
 
 function moveDB(){
 //horisontal.push("A1,B1,C1,D1,E1,F1,G1,H1","A2,B2,C2,D2,E2,F2,G2,H2","A3,B3,C3,D3,E3,F3,G3,H3","A4,B4,C4,D4,E4,F4,G4,H4","A5,B5,C5,D5,E5,F5,G5,H5","A6,B6,C6,D6,E6,F6,G6,H6","A7,B7,C7,D7,E7,F7,G7,H7","A8,B8,C8,D8,E8,F8,G8,H8");
